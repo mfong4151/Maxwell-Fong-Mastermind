@@ -11,39 +11,39 @@ datasource db {
 }
 
 model User {
-  id             String @id @default(cuid())
-  username       String @unique
+  id             String       @id @default(cuid())
+  username       String       @unique
   hashedPassword String
-  gamesWon       Int    @default(0)
-  games     GamePlayer[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  @@map("users")
+  gamesWon       Int          @default(0)
+  games          GamePlayer[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
   @@index(type: BTree, fields: [id])
+  @@map("users")
 }
 
 model Game {
-  id               String @id @default(cuid())
-  remainingGuesses Int    @default(10)
-  secretCode       Int[]
-  numCorrectLoc    Int
-  numCorrectNum    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  players GamePlayer[]
-  
-  @@map("games")
+  id               String       @id @default(cuid())
+  remainingGuesses Int          @default(10)
+  secretCode       String[]
+  numCorrectLoc    Int          @default(0)
+  numCorrectNum    Int          @default(0)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  players          GamePlayer[]
+
   @@index(type: BTree, fields: [id])
+  @@map("games")
 }
 
-model GamePlayer{ 
-  id String @id @default(cuid())
+model GamePlayer {
+  id       String @id @default(cuid())
   playerId String
-  gameId String
-  game Game @relation(fields: [gameId], references: [id])
-  player User @relation(fields: [playerId], references: [id])
+  gameId   String
+  game     Game   @relation(fields: [gameId], references: [id])
+  player   User   @relation(fields: [playerId], references: [id])
 
-  @@map("game_players")
   @@index(type: BTree, fields: [id])
+  @@map("game_players")
 }
