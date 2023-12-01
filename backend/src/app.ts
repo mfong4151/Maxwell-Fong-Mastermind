@@ -5,7 +5,6 @@ const app = express()
 
 const PORT = process.env.PORT_NO || 5000;
 
-
 app.use(express.json(), cors())
 
 app.get('/', (req: Request, res: Response) =>{
