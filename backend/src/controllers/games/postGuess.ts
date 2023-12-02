@@ -15,7 +15,7 @@ TODO:
 */
 
 export const postGameGuess = async (req: Request, res: Response): Promise<Response> => {
-    const gameId: number =  Number(req.params.id);
+    const gameId: number =  Number(req.params.gameId);
     const {guesses, playerId} = req.body as { guesses: string[], playerId: number | undefined};
 
     try {
@@ -50,6 +50,7 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
                 .json(gameGuess)
 
     } catch (error: unknown) {
+        console.log(error)
         return produceControllerError(res, error, 'game') 
     }
 }

@@ -14,6 +14,6 @@ const gameRouter: Router = Router();
 gameRouter
     .get('/:id', gameGetValidations, validate, getGame)
     .post('/', gamePostValidations, validate, postGame )
-    .post('/:id/guesses', gameGuessPostValidations, validate, gameGuessPostSanitzations, postGameGuess  )
+    .post('/:gameId/guesses', gameGuessPostValidations, validate, gameGuessPostSanitzations, postGameGuess  )
 
 export default gameRouter;
