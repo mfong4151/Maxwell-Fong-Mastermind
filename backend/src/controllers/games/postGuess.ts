@@ -10,6 +10,8 @@ TODO:
 2. Improve response logic status codes
 3. Double check logic for optional playerId
 4. Fix scoreGame loop logic, you might need a two pass here in order to make sure theres no double accounting
+    --Potential solution, if they match, then add the score immediately, if they dont, add them to the count hash
+    --Then we only diff the count hash and the remaining members of the secret code
 */
 
 export const postGameGuess = async (req: Request, res: Response): Promise<Response> => {
