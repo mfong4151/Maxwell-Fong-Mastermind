@@ -1,3 +1,3 @@
 export * from './post'
-export * from './patch'
+export * from './postGuess'
 export * from './get'

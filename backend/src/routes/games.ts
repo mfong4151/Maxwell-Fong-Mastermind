@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { validate } from "../middleware";
-import { getGame, postGame, patchGame } from "../controllers/games";
-import { gameGetValidations, gamePostValidations, gamePatchValidations  } from "../validations/game";
-import { gamePatchSanitizations } from "../sanitizations/game";
+import { getGame, postGame, postGameGuess } from "../controllers/games";
+import { gameGetValidations, gamePostValidations, gameGuessPostValidations  } from "../validations/game";
+import { gameGuessPostSanitzations } from "../sanitizations/game";
 
 /*
     GET: Used to retrieve previous game state. Used for resuming a previously started game. 
@@ -14,6 +14,6 @@ const gameRouter: Router = Router();
 gameRouter
     .get('/:id', gameGetValidations, validate, getGame)
     .post('/', gamePostValidations, validate, postGame )
-    .patch('/:id', gamePatchValidations, validate, gamePatchSanitizations, patchGame)
+    .post('/:id/guesses', gameGuessPostValidations, validate, gameGuessPostSanitzations, postGameGuess  )
 
 export default gameRouter;

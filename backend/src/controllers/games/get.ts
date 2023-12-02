@@ -18,7 +18,6 @@ export const getGame = async (req: Request, res: Response): Promise<Response> =>
         }
             
     } catch (error: unknown) {
-        console.log(error)
         return produceControllerError(res, error, 'game')
 
     }

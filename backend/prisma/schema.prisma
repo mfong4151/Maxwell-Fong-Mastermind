@@ -16,6 +16,7 @@ model User {
   hashedPassword String
   gamesWon       Int          @default(0)
   games          GamePlayer[]
+  guesses        GameGuess[]
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 
@@ -24,27 +25,43 @@ model User {
 }
 
 model Game {
-  id               Int       @id @default(autoincrement())
-  remainingGuesses Int          @default(10)
-  secretCode       String[]
-  numCorrectLoc    Int          @default(0)
-  numCorrectNum    Int          @default(0)
-  isGameWon        Boolean      @default(false)
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  players          GamePlayer[]
+  id         Int          @id @default(autoincrement())
+  numGuesses Int          @default(10)
+  secretCode String[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  players    GamePlayer[]
+  guesses    GameGuess[]
 
   @@index(type: BTree, fields: [id])
   @@map("games")
 }
 
 model GamePlayer {
-  id       Int @id @default(autoincrement())
-  playerId Int 
-  gameId    Int 
-  game     Game   @relation(fields: [gameId], references: [id])
-  player   User   @relation(fields: [playerId], references: [id])
+  id        Int      @id @default(autoincrement())
+  playerId  Int
+  gameId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  game      Game     @relation(fields: [gameId], references: [id])
+  player    User     @relation(fields: [playerId], references: [id])
 
   @@index(type: BTree, fields: [id])
   @@map("game_players")
+}
+
+model GameGuess {
+  id            Int      @id @default(autoincrement())
+  playerId      Int?
+  gameId        Int
+  numCorrectLoc Int
+  numCorrectNum Int
+  isGameWon     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  game          Game     @relation(fields: [gameId], references: [id])
+  player        User?     @relation(fields: [playerId], references: [id])
+  
+  @@index(type: BTree, fields: [id])
+  @@map("game_guesses")
 }
