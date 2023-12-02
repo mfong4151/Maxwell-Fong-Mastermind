@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id             String       @id @default(cuid())
+  id             Int          @id @default(autoincrement())
   username       String       @unique
   hashedPassword String
   gamesWon       Int          @default(0)
@@ -24,11 +24,12 @@ model User {
 }
 
 model Game {
-  id               String       @id @default(cuid())
+  id               Int       @id @default(autoincrement())
   remainingGuesses Int          @default(10)
   secretCode       String[]
   numCorrectLoc    Int          @default(0)
   numCorrectNum    Int          @default(0)
+  isGameWon        Boolean      @default(false)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
   players          GamePlayer[]
@@ -38,9 +39,9 @@ model Game {
 }
 
 model GamePlayer {
-  id       String @id @default(cuid())
-  playerId String
-  gameId   String
+  id       Int @id @default(autoincrement())
+  playerId Int 
+  gameId    Int 
   game     Game   @relation(fields: [gameId], references: [id])
   player   User   @relation(fields: [playerId], references: [id])
 

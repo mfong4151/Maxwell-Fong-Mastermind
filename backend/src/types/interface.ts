@@ -1,5 +1,5 @@
 export interface CodeOptions{
-    num?: string;
+    num?: number;
     min?: string;
     max?: string;
     col?: string;

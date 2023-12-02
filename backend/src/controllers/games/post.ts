@@ -13,18 +13,26 @@ import { CodeOptions } from "../../types/interface";
 //4. Returns the game data.
 
 export const postGame = async (req: Request, res: Response): Promise<Response> => {
-    const data = req.body as Prisma.GameCreateInput;
-    const {num} = req.query as CodeOptions;
+    const {num} = req.body as CodeOptions
+    const data: Prisma.GameCreateInput = {}
+    
     try {
         const secretCode: string[] = await generateRandomCode({num})
-        data.secretCode = secretCode;
-        const game: Awaited<Game> = await createGame(data);
 
-        return res
-            .status(201)
-            .location(generateLocation(req, game.id))
-            .json({ ...game })
+        if (secretCode.length){   
+            data.secretCode = secretCode;
+            const game: Awaited<Partial<Game>> = await createGame(data);
+            
+            return res
+                    .status(201)
+                    .location(generateLocation(req, game.id!))
+                    .json(game)
 
+        }else{
+            return res
+                    .status(500)
+                    .json({errors: ['The game could not be created due to an internal service issue.']})
+        }            
     } catch (error: controllerError) {
         return produceControllerError(res, error, "game")
 

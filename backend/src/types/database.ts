@@ -1,0 +1,1 @@
+export type PrismaQueryOptions = {[key: string]: true}

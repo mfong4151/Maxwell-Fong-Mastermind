@@ -2,7 +2,7 @@
 # Setup and running
 
 ## Backend
-To set up locally, from the project root, in the terminal use:
+To set up locally, from the project root, in the terminal execute the following to install dependencies:
 
 ```bash
 cd backend
@@ -15,16 +15,51 @@ DATABASE_URL="postgresql://<username>:<password>@localhost:5432/mastermind?schem
 ```
 Of course substituting <username> and <password> for your username and password respectively. If another database currently has the name "mastermind", then feel free to change the name as well.
 
+Next execute the following command in /backend:
+
+```bash
+npx prisma generate
+```
+This will create the Prisma Client, which will generate in node_modules.
+
 ## Frontend
 
 For viewing on the frontend:
 
 ```bash
-cd backend
+cd frontend
 npm install
 ```
 
-Features: 
+## Running
+
+From the root directory, open up two terminal instances.
+
+In the first instance, cd into /backend folder, and run:
+```bash
+npm run build
+```
+
+Then
+```bash
+npm run start
+```
+
+Respectively, cd into the /frontend folder, and run:
+```bash
+npm start
+```
+
+# Requirements
+
+Per the challenge description:
+
+"Use Random generator API (https://www.random.org/clients/http/api/) to randomly select 4 numbers from 0 ~ 7 (Duplicate numbers are allowed)"
+
+Code for the above requirement is produced in /backend/src/controllers/game/utils.ts. A call to www.random.org is made with the respective arguments as query params.
+
+# Features
+
 - user auth
 - Multiplayer game
 
@@ -41,3 +76,8 @@ PATCH api/v1/scores
 
 POST api/v1/users
 PATCH api/v1/users# Maxwell-Fong-Mastermind
+
+
+# Concerns
+
+Extensibility: many decisions were made with exensibility in mind. First and foremost is th

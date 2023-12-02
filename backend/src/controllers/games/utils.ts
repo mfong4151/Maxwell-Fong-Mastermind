@@ -18,12 +18,12 @@ export const generateRandomCode = async (codeOptions: CodeOptions ): Promise<str
             const plainTextRandom = await res.text()
             return _transposeRandomText(plainTextRandom)
         }
+        return []
 
     } catch (error) {
-        return []        
+        return []           
     }
-
-    return []
+    
 }
 
 //Left extensible in case of variable query args
@@ -36,3 +36,5 @@ const _transposeRandomText= (randomNumberStr: string): string[] => (
         .split("\n")
         .filter((num: string) => num !== '')
 )  
+
+
