@@ -50,8 +50,8 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
                 .json(gameGuess)
 
     } catch (error: unknown) {
-        console.log(error)
         return produceControllerError(res, error, 'game') 
+        
     }
 }
 

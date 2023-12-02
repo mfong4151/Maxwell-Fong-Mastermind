@@ -24,7 +24,10 @@ body {
 .flex-center-left{
     justify-content: left;
 }
-
+.flex-between{
+    justify-content: space-between;
+    align-items: center;
+}
 .flex-evenly{
     justify-content: space-evenly;
     align-items: center;
@@ -43,7 +46,6 @@ body {
 }
 
 .padding-default{
-    padding-top: 2rem;
     padding-left: 2.75rem;
     padding-right: 2.75rem;
 }

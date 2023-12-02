@@ -11,12 +11,6 @@ const initialState: GameState = {
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
-    case 'LOGIN':
-      return { ...state, session: true };
-
-    case 'LOGOUT':
-      return { ...initialState, session: false };
-
     case 'ADD_GAMES':
       return {...state, games: {...state.games}}
 
