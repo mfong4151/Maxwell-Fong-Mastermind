@@ -1,7 +1,9 @@
 
-# Setup and running
+# Maxwell Fong Mastermind
 
-## Backend
+## Setup and running
+
+### Backend
 To set up locally, from the project root, in the terminal execute the following to install dependencies:
 
 ```bash
@@ -22,7 +24,7 @@ npx prisma generate
 ```
 This will create the Prisma Client, which will generate in node_modules.
 
-## Frontend
+### Frontend
 
 For viewing on the frontend:
 
@@ -31,7 +33,7 @@ cd frontend
 npm install
 ```
 
-## Running
+### Running
 
 From the root directory, open up two terminal instances.
 
@@ -50,7 +52,7 @@ Respectively, cd into the /frontend folder, and run:
 npm start
 ```
 
-# Requirements
+## Requirements
 
 Per the challenge description:
 
@@ -58,13 +60,14 @@ Per the challenge description:
 
 Code for the above requirement is produced in /backend/src/controllers/game/utils.ts. A call to www.random.org is made with the respective arguments as query params.
 
-# Features
+## Features
 
 - user auth
 - Multiplayer game
+- websockets
+- scoreboard
 
-
-Backend Routes:
+## Backend Routes:
 
 POST api/v1/games
 PATCH api/v1/games
@@ -75,9 +78,9 @@ GET api/v1/scores
 PATCH api/v1/scores
 
 POST api/v1/users
-PATCH api/v1/users# Maxwell-Fong-Mastermind
+PATCH api/v1/users
 
-
-# Concerns
-
-Extensibility: many decisions were made with exensibility in mind. First and foremost is th
+## To do:
+- Test PATCH route
+- User auth?
+- Frontend

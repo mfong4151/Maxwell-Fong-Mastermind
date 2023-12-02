@@ -21,7 +21,6 @@ export const patchGame = async (req: Request, res: Response): Promise<Response> 
         if (errors.length){
             return res.status(404).json({errors})
         }
-        
 
         //Check against previous game state
         const newGameState = _compareGameState(prevGameState, guesses)
@@ -30,6 +29,7 @@ export const patchGame = async (req: Request, res: Response): Promise<Response> 
             return res
                     .status(400)
                     .json({errors: ['The length of the guess is not equal to the length of the original code']})
+
         }
 
         const updatedGame: Awaited<Partial<Game> | null> = await updateGame(newGameState, Number(id))
@@ -39,8 +39,9 @@ export const patchGame = async (req: Request, res: Response): Promise<Response> 
 
         }else{
             return res.status(404).json({errors: [generateNotFoundMessage('game', id)]})
-            
+
         }
+        
     } catch (error: unknown) {
         return produceControllerError(res, error, 'game') 
     }
@@ -84,15 +85,12 @@ const _compareGameState = (prevGameState: Partial<Game>, guesses: string[]): Par
             numCorrectNum ++
             codeCount[code] --
         } 
-
     }
+
     //Return the new game state
-
-
     if (numCorrectLoc === numCorrectNum && numCorrectLoc === guesses.length){
         isGameWon = true;
     }
-
 
     return {numCorrectLoc, numCorrectNum, isGameWon, remainingGuesses}
 }

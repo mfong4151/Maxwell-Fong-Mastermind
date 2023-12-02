@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Layout from './layouts/Layout';
+import { Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import Game from './pages/Game';
+import NewGame from './pages/NewGame';
+import { GameProvider } from './context/GameContext';
 
-function App() {
+const App: React.FC = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <GameProvider>
+      <Layout>
+        <Router>
+          <Routes>
+            <Route path='/games' element={<></>} />
+            <Route path='/game/new' element={<NewGame />} />
+            <Route path='/game/:id' element={<Game />} />
+          </Routes>
+        </Router>
+      </Layout>
+    </GameProvider>
+  )
+
 }
 
 export default App;
