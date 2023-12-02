@@ -10,7 +10,9 @@ export const validate = (req: Request, res: Response, next: NextFunction): Respo
         return next()
     }
 
-    const errorMsgs: string[] = errors.array().map((err: ValidationError) => err.msg)
+    const errorMsgs: string[] = errors
+                                .array()
+                                .map((err: ValidationError) => err.msg)
 
     return res.status(422).json({errors: errorMsgs})
 }

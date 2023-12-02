@@ -29,7 +29,7 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
         const errors: string[] = _checkGamePlayable(prevGameState, guesses);
         
         if (errors.length){
-            return res.status(409).json({errors})
+            return res.status(422).json({errors})
         }
 
         //Check against previous game state, recieve a Partial<GameGuess> object which tracks score.
