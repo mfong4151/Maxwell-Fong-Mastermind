@@ -10,11 +10,23 @@ const genererateErrorMessage = (resourceName: string) =>(
 export const produceControllerError = (res: Response, error: controllerError, resourceName: string): Response => {
 
     if (error instanceof PrismaClientKnownRequestError){
-        return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})   
+        return _delegatePrismaError(res, error, resourceName)
+           
     }
     else{
         return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})
     }
+
+}
+
+const _delegatePrismaError = (res: Response, error: PrismaClientKnownRequestError, resourceName: string) => {
+    if (error.code === 'P2002'){
+        return res
+                .status(409)
+                .json({errors: [`A ${resourceName} with the same ${error.meta!.target} already exists.`]})
+    }
+
+    return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})
 
 }
 

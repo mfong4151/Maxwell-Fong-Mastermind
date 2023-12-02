@@ -84,3 +84,5 @@ PATCH api/v1/users
 - Test PATCH route
 - User auth?
 - Frontend
+
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMTU1NTU0OCwiZXhwIjoxNzAxNjQxOTQ4fQ.fCmjqMFlBqoJB13dfZWlHXpHaR-jGhLwCwE6KrAj6TY"

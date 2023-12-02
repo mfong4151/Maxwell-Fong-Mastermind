@@ -10,7 +10,7 @@ import { gameGuessPostSanitzations } from "../sanitizations/game";
     PATCH: Called by player to play the game.
 */
 
-const gameRouter: Router = Router();
+const gameRouter = Router();
 gameRouter
     .get('/:id', gameGetValidations, validate, getGame)
     .post('/', gamePostValidations, validate, postGame )
