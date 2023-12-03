@@ -1,6 +1,5 @@
 import { ValidationChain, param} from "express-validator";
 
-
 export const generateIdValidation = (id: ValidationChain, plainName: string) => (
     id
         .isInt()

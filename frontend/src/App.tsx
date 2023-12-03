@@ -9,21 +9,21 @@ import { GameProvider } from './context/GameContext';
 
 const App: React.FC = () => {
 
-  return (
-    <GameProvider>
-        <Router>
-          <Layout>
-          <Routes>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/games' element={<Games/>} />
-            <Route path='/game/new' element={<NewGame />} />
-            <Route path='/game/:id' element={<Game />} />
-            <Route path='/' element={<Login/>}/>
-          </Routes>
-          </Layout>
-        </Router>
-    </GameProvider>
-  )
+    return (
+      <GameProvider>
+          <Router>
+            <Layout>
+            <Routes>
+              <Route path='/login' element={<Login/>}/>
+              <Route path='/games' element={<Games/>} />
+              <Route path='/game/new' element={<NewGame />} />
+              <Route path='/game/:id' element={<Game />} />
+              <Route path='/' element={<Login/>}/>
+            </Routes>
+            </Layout>
+          </Router>
+      </GameProvider>
+    )
 
 }
 
