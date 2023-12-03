@@ -6,4 +6,5 @@ export interface CodeOptions{
     base?: string;
     format?: string;
     rnd?: string;
+    playerIds?: number[];
 }

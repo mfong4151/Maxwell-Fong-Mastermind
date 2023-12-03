@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validate } from "../middleware";
+import { optionallizeJWT, validate } from "../middleware";
 import { getGame, postGame, postGameGuess } from "../controllers/games";
 import { gameGetValidations, gamePostValidations, gameGuessPostValidations  } from "../validations/game";
 import { gameGuessPostSanitzations } from "../sanitizations/game";
@@ -13,7 +13,7 @@ import { gameGuessPostSanitzations } from "../sanitizations/game";
 const gameRouter = Router();
 gameRouter
     .get('/:id', gameGetValidations, validate, getGame)
-    .post('/', gamePostValidations, validate, postGame )
+    .post('/', gamePostValidations, optionallizeJWT ,validate, postGame )
     .post('/:gameId/guesses', gameGuessPostValidations, validate, gameGuessPostSanitzations, postGameGuess  )
 
 export default gameRouter;

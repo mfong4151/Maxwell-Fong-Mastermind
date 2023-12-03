@@ -1,6 +1,7 @@
 import { Response } from "express"
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
 import { controllerError } from "../../types"
+import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION } from "./constants"
 
 //Catch all functions for dealing with errors
 const genererateErrorMessage = (resourceName: string) =>(
@@ -20,13 +21,25 @@ export const produceControllerError = (res: Response, error: controllerError, re
 }
 
 const _delegatePrismaError = (res: Response, error: PrismaClientKnownRequestError, resourceName: string) => {
-    if (error.code === 'P2002'){
-        return res
-                .status(409)
-                .json({errors: [`A ${resourceName} with the same ${error.meta!.target} already exists.`]})
-    }
+    console.log(error)
+    switch(error.code){
+        case UNIQUE_CONSTRAINT_VIOLATION:
+            return res
+                    .status(409)
+                    .json({errors: [`A ${resourceName} with the same ${error.meta!.target} already exists.`]})
 
-    return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})
+        case NON_EXISTANT_RELATION:
+            return res
+                    .status(404)
+                    .json({errors: [`A relation on the ${resourceName} field does not exist`]})
+
+        default:
+            return res
+                    .status(500)
+                    .json({errors: [genererateErrorMessage(resourceName)]})
+    }
+    
+
 
 }
 

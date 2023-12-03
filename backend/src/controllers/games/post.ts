@@ -2,9 +2,13 @@ import { Game, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { createGame } from "../../database/game";
 import { controllerError } from "../../types";
-import { generateLocation, produceControllerError } from "../utils";
+import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION, generateLocation, produceControllerError } from "../utils";
 import { generateRandomCode } from "./utils";
 import { CodeOptions } from "../../types/interface";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+
+//TODOS:
+// 1. Fix the players array options, im not sure if its better practice to ask for an empty array, or imply theres won
 
 //After recieving a request, does the following:
 //1. Fire api call to random api to create game.
@@ -14,14 +18,23 @@ import { CodeOptions } from "../../types/interface";
 
 export const postGame = async (req: Request, res: Response): Promise<Response> => {
     const {num} = req.body as CodeOptions
-    const data: Prisma.GameCreateInput = {}
-    
+    let playerIds = req.body.playerIds as number[];
+    const userId: number | undefined = req.userId;
+
+    //Handles the addition of users to a game if they don't 
+    if (userId){ 
+        if (playerIds){
+            playerIds.push(userId)
+        } else{
+            playerIds = [userId]
+        }
+    }
+
     try {
         const secretCode: string[] = await generateRandomCode({num})
 
-        if (secretCode.length){   
-            data.secretCode = secretCode;
-            const game: Awaited<Partial<Game>> = await createGame(data);
+        if (secretCode.length){               
+            const game: Awaited<Partial<Game>> = await createGame(secretCode, playerIds);
             
             return res
                     .status(201)
@@ -34,7 +47,18 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
                     .json({errors: ['The game could not be created due to an internal service issue.']})
         }            
     } catch (error: controllerError) {
-        return produceControllerError(res, error, "game")
+        
+        if(error instanceof PrismaClientKnownRequestError 
+            && error.code === NON_EXISTANT_RELATION){
+            return res.status(404).json({
+                errors: ['One of the users added does not exist, please re evaluate your game creation request']
+            })
+
+        } else {
+            return produceControllerError(res, error, "game")
+
+        }
+
 
     }
 }

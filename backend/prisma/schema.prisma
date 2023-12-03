@@ -60,7 +60,7 @@ model GameGuess {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   game          Game     @relation(fields: [gameId], references: [id])
-  player        User?     @relation(fields: [playerId], references: [id])
+  player        User?    @relation(fields: [playerId], references: [id])
   
   @@index(type: BTree, fields: [id])
   @@map("game_guesses")
