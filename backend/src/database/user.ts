@@ -1,15 +1,38 @@
-import prisma from './db';
-import {User, Prisma} from '@prisma/client';
+import { Game, User } from "@prisma/client";
+import prisma from "./db";
 
-export const findUserByUsername = (username: string): Promise<User | null> => (
-    prisma.user.findUnique({
+export const findGamesByUserId = (userId: number): Promise<Partial<Game>[]> => (
+    prisma.game.findMany({
         where: {
-            username
+            players:{
+                some:{
+                    playerId: userId
+                }
+            }
+        },
+        select: {
+            id: true,
+            numGuesses: true,
+            _count: {
+                select:{
+                    players: true
+                }
+            },
+            createdAt: true,
         }
     })
 )
 
-export const createUser = (data: Prisma.UserCreateInput): Promise<User> =>(
-    prisma.user.create({
-        data    
-    }))
+export const findUsersByQuery = (query: string): Promise<Partial< User>[]> => (
+    prisma.user.findMany({
+        where: {
+            username:{
+                contains: query
+            }
+        },
+        select:{
+            id: true,
+            username: true
+        }
+    })
+)

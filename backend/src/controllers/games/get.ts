@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generateNotFoundMessage, produceControllerError } from "../utils";
+import { generateNotFoundMessage, handleControllerErrors } from "../utils";
 import { Game } from "@prisma/client";
 import { findGameById } from "../../database/game";
 
@@ -18,7 +18,7 @@ export const getGame = async (req: Request, res: Response): Promise<Response> =>
         }
             
     } catch (error: unknown) {
-        return produceControllerError(res, error, 'game')
+        return handleControllerErrors(res, error, 'game')
 
     }
 }

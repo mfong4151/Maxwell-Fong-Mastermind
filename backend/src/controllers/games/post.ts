@@ -2,7 +2,7 @@ import { Game, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { createGame } from "../../database/game";
 import { controllerError } from "../../types";
-import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION, generateLocation, produceControllerError } from "../utils";
+import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors } from "../utils";
 import { generateRandomCode } from "./utils";
 import { CodeOptions } from "../../types/interface";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
@@ -55,7 +55,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
             })
 
         } else {
-            return produceControllerError(res, error, "game")
+            return handleControllerErrors(res, error, "game")
 
         }
 

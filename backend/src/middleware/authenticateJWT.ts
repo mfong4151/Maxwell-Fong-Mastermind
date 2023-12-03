@@ -12,12 +12,16 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token){
-        return res.sendStatus(401);
+        return res
+                .status(401)
+                .json({errors:['You are not logged in! Please log in before proceeding']});
     } 
 
     const user = verifyToken(token) as Token 
     if (!user){
-        return res.sendStatus(403);
+        return res
+                .send(403)
+                .json({errors:['You are not permitted to access this account!']});
 
     } 
 

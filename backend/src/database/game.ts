@@ -5,7 +5,8 @@ import { gameGuessNoFK } from "../types";
 // Used for initializing a game
 // Creates a game, then tries to create GamePlayers
 // If an undefined is passed as playerIds, at runtime it is implicitly handled as an empty array
-// In the case where no player objects are sent, the game impliclty only has a single, not logged in player
+// In the case where no player objects are sent, the game impliclty only has a single, not logged in player.
+
 export const createGame = (secretCode: string[], playerIds: number[] = []): Promise<Partial<Game>> => (
     prisma.game.create({
         data:{
@@ -82,3 +83,23 @@ export const createGameGuess =
                 data: query
             })
         }
+
+export const findGuessesByGameId  = (gameId: number): Promise<Partial<GameGuess>[]> => (
+    prisma.gameGuess.findMany({
+        where: {
+            gameId
+        },
+        select:{
+          id: true,
+          gameId: true,
+          numCorrectLoc: true,
+          numCorrectNum: true,
+          isGameWon: true,
+          createdAt: true,
+        },
+        orderBy:{
+            createdAt: 'asc'
+        }
+    })
+
+) 

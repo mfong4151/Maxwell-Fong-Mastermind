@@ -70,19 +70,12 @@ Code for the above requirement is produced in /backend/src/controllers/game/util
 ## Backend Routes:
 
 POST api/v1/games
-PATCH api/v1/games
+POST api/v1/games/:gameId/guesses
 GET api/v1/games
 
-POST api/v1/scores
-GET api/v1/scores
-PATCH api/v1/scores
+POST api/v1/auth/login
+POST api/v1/auth/signup
 
-POST api/v1/users
-PATCH api/v1/users
 
 ## To do:
-- Test PATCH route
-- User auth?
 - Frontend
-
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMTU1NTU0OCwiZXhwIjoxNzAxNjQxOTQ4fQ.fCmjqMFlBqoJB13dfZWlHXpHaR-jGhLwCwE6KrAj6TY"

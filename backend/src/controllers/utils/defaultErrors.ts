@@ -8,7 +8,7 @@ const genererateErrorMessage = (resourceName: string) =>(
     `Unable to handle request for the resource ${resourceName} to the database, internal service error`
 )
 
-export const produceControllerError = (res: Response, error: controllerError, resourceName: string): Response => {
+export const handleControllerErrors = (res: Response, error: controllerError, resourceName: string): Response => {
 
     if (error instanceof PrismaClientKnownRequestError){
         return _delegatePrismaError(res, error, resourceName)
@@ -21,7 +21,6 @@ export const produceControllerError = (res: Response, error: controllerError, re
 }
 
 const _delegatePrismaError = (res: Response, error: PrismaClientKnownRequestError, resourceName: string) => {
-    console.log(error)
     switch(error.code){
         case UNIQUE_CONSTRAINT_VIOLATION:
             return res
@@ -37,10 +36,7 @@ const _delegatePrismaError = (res: Response, error: PrismaClientKnownRequestErro
             return res
                     .status(500)
                     .json({errors: [genererateErrorMessage(resourceName)]})
-    }
-    
-
-
+    }    
 }
 
 export const generateNotFoundMessage = (resourceName: string, id: number | string) =>{

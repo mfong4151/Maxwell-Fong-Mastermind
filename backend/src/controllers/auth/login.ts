@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { findUserByUsername } from "../../database/user";
+import { findUserByUsername } from "../../database/auth";
 import { generateToken } from "../../jwtConfig";
 import { compare } from 'bcrypt';
 import type { User } from '@prisma/client';
-import { produceControllerError } from "../utils";
+import { handleControllerErrors } from "../utils";
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
     const { username, password } = req.body as { [key: string]: string }
@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
         }
     } catch (error: unknown) {
-        return produceControllerError(res, error, 'user')
+        return handleControllerErrors(res, error, 'user')
 
     }
 

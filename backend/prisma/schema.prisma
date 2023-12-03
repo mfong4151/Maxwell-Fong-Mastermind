@@ -43,9 +43,10 @@ model GamePlayer {
   gameId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  game      Game     @relation(fields: [gameId], references: [id])
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
   player    User     @relation(fields: [playerId], references: [id])
 
+  @@unique([playerId, gameId])
   @@index(type: BTree, fields: [id])
   @@map("game_players")
 }
@@ -59,8 +60,8 @@ model GameGuess {
   isGameWon     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  game          Game     @relation(fields: [gameId], references: [id])
-  player        User?    @relation(fields: [playerId], references: [id])
+  game          Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  player        User?    @relation(fields: [playerId], references: [id], onDelete: Cascade)
   
   @@index(type: BTree, fields: [id])
   @@map("game_guesses")

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { produceControllerError } from "../utils";
-import { createUser } from "../../database/user";
+import { handleControllerErrors } from "../utils";
+import { createUser } from "../../database/auth";
 import {User} from '@prisma/client';
 import {hash} from 'bcrypt';
 
@@ -18,7 +18,7 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
                 .json({user});
 
     } catch (error: unknown) {
-        return produceControllerError(res, error, 'user')
+        return handleControllerErrors(res, error, 'user')
 
     }
 }
