@@ -1,16 +1,19 @@
 import { Game, Prisma, GameGuess} from "@prisma/client";
 import prisma from "./db";
-import { gameGuessNoFK } from "../types";
+import { gameGuessNoFK, GameWithPlayers} from "../types";
 
 // Used for initializing a game
 // Creates a game, then tries to create GamePlayers
 // If an undefined is passed as playerIds, at runtime it is implicitly handled as an empty array
 // In the case where no player objects are sent, the game impliclty only has a single, not logged in player.
 
-export const createGame = (secretCode: string[], playerIds: number[] = []): Promise<Partial<Game>> => (
+export const createGame = (secretCode: string[], numGuesses: number, playerIds: number[] = [])
+: Promise<Partial<Game>> => (
+
     prisma.game.create({
         data:{
             secretCode,
+            numGuesses,
             players: {
                 create: 
                     playerIds.map((id: number) => (
@@ -33,6 +36,7 @@ export const createGame = (secretCode: string[], playerIds: number[] = []): Prom
 )
 
 //Used for getting a current game
+//TODO: figure out why the typing is weird here
 export const findGameById = (id: number, isCheckingScore: boolean = false): Promise<Partial<Game> | null> => (
     prisma.game.findUnique({
         where: {id},
@@ -41,11 +45,21 @@ export const findGameById = (id: number, isCheckingScore: boolean = false): Prom
             numGuesses: true,
             createdAt: true,
             secretCode: isCheckingScore,
+            players: {
+                select: {
+                    id: true,
+                    playerId: true,
+
+                }
+            },
             guesses: {
                 select:{
+                    id: true,
                     numCorrectLoc: true,
-                    numCorrectNum: true,   
-                    isGameWon: true
+                    numCorrectNum: true,
+                    guesses: true,
+                    isGameWon: true,
+                    createdAt: true,
                 },
                 orderBy: {
                     createdAt: 'asc'

@@ -6,9 +6,11 @@ interface Props{
     children: ReactNode;
 }
 const initialState: GameState = {
+  sessionUser: {},
   users: {},
-  session: {},
-  games: {}
+  games: {},
+  guesses: {},
+  
 };
 
 const GameContext = createContext<{

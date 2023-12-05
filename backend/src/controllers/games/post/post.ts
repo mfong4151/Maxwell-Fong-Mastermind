@@ -1,10 +1,10 @@
 import { Game, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { createGame } from "../../database/game";
-import { controllerError } from "../../types";
-import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors } from "../utils";
-import { generateRandomCode } from "./utils";
-import { CodeOptions } from "../../types/interface";
+import { createGame } from "../../../database/game";
+import { controllerError } from "../../../types";
+import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors } from "../../utils";
+import { _generateRandomCode} from "./_generateRandomCode";
+import {  GameOptions } from "../../../types/interface";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 //TODOS:
@@ -16,12 +16,17 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 //3. Creates the game row.
 //4. Returns the game data.
 
+interface ReqBody{
+    num: number,
+    numGuesses:number
+}
+
 export const postGame = async (req: Request, res: Response): Promise<Response> => {
-    const {num} = req.body as CodeOptions
+    const {num, numGuesses} = req.body as ReqBody;
     let playerIds = req.body.playerIds as number[];
     const userId: number | undefined = req.userId;
 
-    //Handles the addition of users to a game if they don't 
+    //Handles the addition of users to a game if its not specified immediately
     if (userId){ 
         if (playerIds){
             playerIds.push(userId)
@@ -31,10 +36,10 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
     }
 
     try {
-        const secretCode: string[] = await generateRandomCode({num})
+        const secretCode: string[] = await _generateRandomCode({num})
 
         if (secretCode.length){               
-            const game: Awaited<Partial<Game>> = await createGame(secretCode, playerIds);
+            const game: Awaited<Partial<Game>> = await createGame(secretCode, numGuesses, playerIds);
             
             return res
                     .status(201)

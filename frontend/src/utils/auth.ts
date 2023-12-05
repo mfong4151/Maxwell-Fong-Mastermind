@@ -1,5 +1,7 @@
+import React from "react";
 import { StateSetter } from "../types";
 import { SERVER_URL } from "./constants";
+import { useGame } from "../context/GameContext";
 
 export const login = async (username: string, password: string, setErrors: StateSetter<string[]>) => {
     try {
@@ -48,3 +50,24 @@ export const logout = () => {
 export const isLoggedIn = () => {
 	return !!localStorage.getItem('jwt');
 };
+
+
+export const jwtFetch = (url: string, body: any = {}, method: string = 'GET', ): Promise<Response> => {
+
+    const headers = {
+        ...authHeader(),        
+        'Content-Type': 'application/json',
+    } as HeadersInit
+
+    const req: {method: string, headers: HeadersInit, body? : any} = {
+        headers, 
+        method,
+    }
+
+    if (method !== 'GET'){
+        req.body = JSON.stringify(body);
+    }
+    
+    return fetch(url, req)
+    
+}

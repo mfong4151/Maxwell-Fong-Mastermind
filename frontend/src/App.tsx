@@ -3,7 +3,7 @@ import Layout from './layouts/Layout';
 import { Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 import Game from './pages/Game';
 import Games from './pages/Games';
-import NewGame from './pages/NewGame';
+import NewGame from './components/NewGameForm';
 import Login from './pages/Login';
 import { GameProvider } from './context/GameContext';
 

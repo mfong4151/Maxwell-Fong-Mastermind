@@ -19,6 +19,9 @@ export const findGamesByUserId = (userId: number): Promise<Partial<Game>[]> => (
                 }
             },
             createdAt: true,
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     })
 )
@@ -35,4 +38,14 @@ export const findUsersByQuery = (query: string): Promise<Partial< User>[]> => (
             username: true
         }
     })
+)
+
+export const findUserProfileById = (id: number) : Promise<Partial<User> | null>=> (
+    prisma.user.findUnique({
+        where: {id},
+        select: {
+            username: true
+        }
+    })
+
 )

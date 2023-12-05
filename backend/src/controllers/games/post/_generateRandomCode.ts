@@ -1,4 +1,4 @@
-import { CodeOptions } from "../../types/interface"
+import {  GameOptions} from "../../../types/interface"
 
 //Default settings as requested in instructions
 const MIN: number = 0;
@@ -9,13 +9,13 @@ const FORMAT : string = 'plain'
 const RND: string = 'new' 
 
 //Logic for grabbing a random code, returns an empty array if there is an error (you can't guess what doesn't exist!)
-export const generateRandomCode = async (codeOptions: CodeOptions ): Promise<string[]> =>{
+export const _generateRandomCode = async (codeOptions: GameOptions): Promise<string[]> =>{
     const randomCodeUrl: string =  _generateRandomOrgUrl(codeOptions);
 
     try {
         const res: Response = await fetch(randomCodeUrl)
         if (res.ok){
-            const plainTextRandom = await res.text()
+            const plainTextRandom: string = await res.text();
             return _transposeRandomText(plainTextRandom)
         }
         return []
@@ -27,7 +27,7 @@ export const generateRandomCode = async (codeOptions: CodeOptions ): Promise<str
 }
 
 //Left extensible in case of variable query args
-const _generateRandomOrgUrl = ({num} : CodeOptions): string => (
+const _generateRandomOrgUrl = ({num} :GameOptions ): string => (
     `https://www.random.org/integers/?num=${num}&min=${MIN}&max=${MAX}&col=${COL}&base=${BASE}&format=${FORMAT}&rnd=${RND}`
 )
 

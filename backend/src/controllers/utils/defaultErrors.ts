@@ -1,7 +1,7 @@
 import { Response } from "express"
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
-import { controllerError } from "../../types"
+import { PrismaClientInitializationError, PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
 import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION } from "./constants"
+import { controllerError } from "../../types"
 
 //Catch all functions for dealing with errors
 const genererateErrorMessage = (resourceName: string) =>(
@@ -10,17 +10,20 @@ const genererateErrorMessage = (resourceName: string) =>(
 
 export const handleControllerErrors = (res: Response, error: controllerError, resourceName: string): Response => {
 
-    if (error instanceof PrismaClientKnownRequestError){
-        return _delegatePrismaError(res, error, resourceName)
+    if ( error instanceof PrismaClientKnownRequestError ){
+        return _delegatePrismaQueryError(res, error, resourceName)
            
-    }else{
+    } else if (error instanceof PrismaClientInitializationError){
+        return res.status(500).json({errors: ['Server failed to connect to database.']})
+
+    } else{
         return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})
 
     }
 
 }
 
-const _delegatePrismaError = (res: Response, error: PrismaClientKnownRequestError, resourceName: string) => {
+const _delegatePrismaQueryError = (res: Response, error: PrismaClientKnownRequestError, resourceName: string) => {
     switch(error.code){
         case UNIQUE_CONSTRAINT_VIOLATION:
             return res

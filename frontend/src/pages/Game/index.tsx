@@ -8,15 +8,22 @@ import { useGame } from '../../context/GameContext';
 import { useParams } from 'react-router-dom';
 
 const Game: React.FC = () => {
-  const params = useParams()
-  const {errors, setErrors, useClearErrorsEffect} = useErrors()
-  const {state, dispatch} = useGame()
-  const gameData = state?.games[Number(params.id)];
+  const params = useParams();
+  const id: number = Number(params.id);
+  const errorsOptions = useErrors();
+  const {errors, setErrors, useClearErrorsEffect} = errorsOptions;
+  const {state, dispatch} = useGame();
+  const guessInputState = useState<string>('')
+  const [guessInput, setGuessInput] = guessInputState;
+  const game = state?.games[Number(params.id)];
+  const guesses = state?.guesses[Number(params.id)];
+  
+  useClearErrorsEffect(guessInput)
 
   useEffect(() => {
     const fetchGame = async() =>{
       try {
-        const res = await fetch(`${SERVER_URL}/api/v1/games/${12}`)
+        const res = await fetch(`${SERVER_URL}/api/v1/games/${id}`)
         if(res.ok){
           const data = await res.json()
           dispatch({type: 'ADD_GAME', payload: data })
@@ -31,20 +38,15 @@ const Game: React.FC = () => {
 
   }, []);
 
-  if(!(gameData)){
+  if(!(game)){
     return <div>Loading game data...</div>
   }
 
-  const {remainingGuesses, numCorrectLoc, numCorrectNum, isGameWon} = gameData;
-  const handleSubmit = async () => {
-    // API call to submit guess and update state
-  };
-
   return (
-    <div>
-      <GuessInput />
-      {/* <GuessHistory history={guessHistory} feedback={feedback} /> */}
-      <div>Remaining Attempts: {remainingGuesses}</div>
+    <div className='flex-center flex-col'>
+      <GuessInput errorsOptions={errorsOptions} guessInputState= {guessInputState}/>
+      <div>Remaining Attempts: {game.numGuesses - Object.values(guesses).length}</div>
+      <GuessHistory guesses={guesses} />
       <Errors errors={errors}/>
     </div>
   );

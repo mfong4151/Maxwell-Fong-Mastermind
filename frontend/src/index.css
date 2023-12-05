@@ -11,6 +11,7 @@ body {
 .flex-center-right,
 .flex-evenly,
 .flex-between,
+.align-center,
 .flex-row,
 .flex-col{
     display: flex;
@@ -21,13 +22,21 @@ body {
     align-items: center;
 }
 
+.align-center{
+    align-items: center;
+}
+
 .flex-center-left{
     justify-content: left;
 }
+
+.flex-center-right{
+    justify-content: right;
+}
 .flex-between{
     justify-content: space-between;
-    align-items: center;
-}
+ }
+
 .flex-evenly{
     justify-content: space-evenly;
     align-items: center;
@@ -52,4 +61,8 @@ body {
 
 .debugger{
     border: solid 1px red;
+}
+
+button{
+    cursor: pointer;
 }

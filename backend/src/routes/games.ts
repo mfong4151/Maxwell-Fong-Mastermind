@@ -15,6 +15,6 @@ gameRouter
     .get('/:gameId/guesses', validate, getGameGuesses)
     .get('/:id', gameGetValidations, validate, getGame)
     .post('/', gamePostValidations, optionallizeJWT ,validate, postGame )
-    .post('/:gameId/guesses', gameGuessPostValidations, validate, gameGuessPostSanitzations, postGameGuess  )
+    .post('/:gameId/guesses', gameGuessPostValidations, optionallizeJWT, validate, gameGuessPostSanitzations, postGameGuess  )
 
 export default gameRouter;

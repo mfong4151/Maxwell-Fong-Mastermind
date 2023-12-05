@@ -1,5 +1,5 @@
-export interface CodeOptions{
-    num?: number;
+export interface GameOptions{
+    num: number;
     min?: string;
     max?: string;
     col?: string;

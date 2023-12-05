@@ -1,14 +1,22 @@
 import React from 'react';
+import { useErrors } from '../../hooks';
+import Errors from '../../components/Errors';
+import MyGames from './MyGames';
+import NewGameForm from '../../components/NewGameForm';
 
-interface Props{
-
-}
-const Games:React.FC<Props> = () => {
-
+const Games: React.FC = () => {
 
   return (
-    <div id='' className=''>
-        YOU ARE LOGGED IN AND HERE IS YOUR GAMES
+    <div>
+      <div className='flex-between'>
+        <MyGames/>
+
+        <div id='games-right'>
+          <NewGameForm/>
+
+        </div>
+      </div>
+ 
     </div>
   );
 };

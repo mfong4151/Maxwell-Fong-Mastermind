@@ -20,31 +20,40 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
     const user = verifyToken(token) as Token 
     if (!user){
         return res
-                .send(403)
+                .status(403)
                 .json({errors:['You are not permitted to access this account!']});
 
     } 
 
     req.userId = user.userId;
-
-    next();
+    return next();
 
 };
 
 //Used primarily if someone wants to play games without being logged in.
-export const optionallizeJWT = (req: Request, res: Response, next: NextFunction): void => {
+//Provides resources to produce optional authentication.
+export const optionallizeJWT = (req: Request, res: Response, next: NextFunction): Response | void => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token){
-        return next()
-    } 
+    if (token){
+        const user = verifyToken(token) as Token;
 
-    const user = verifyToken(token) as Token;
+        if (!user){
+            return res
+            .status(401)
+            .json({errors: ['Please refresh your login session to proceed.']})
 
-    req.userId = user.userId;
+        }
 
-    next();
+        req.userId = user.userId;
+
+    } else{
+        req.userId = 0; //Because no id NEVER === 0, we can use this to indicate no login
+        
+     }
+
+    return next();
 
 };
 

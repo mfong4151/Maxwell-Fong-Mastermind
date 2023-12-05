@@ -1,0 +1,19 @@
+#game-items{
+    max-height: 70%;
+    min-width:45%;
+    overflow-y: auto;
+}
+
+#game-items > li{
+    min-width: 50%;
+    border: solid 1px black;
+    padding-inline: .5rem;   
+}
+
+.game-item-about{
+    width: 65%;
+}
+
+#games-right{
+    min-width: 45%;
+}

@@ -62,7 +62,8 @@ Code for the above requirement is produced in /backend/src/controllers/game/util
 
 ## Features
 
-- user auth
+- Optional user authentication
+- Adjustable difficulty
 - Multiplayer game
 - websockets
 - scoreboard
@@ -76,6 +77,11 @@ GET api/v1/games
 POST api/v1/auth/login
 POST api/v1/auth/signup
 
+## Problems: 
+
+### Optimizing requests
+
+At one point, I attempted to optimizing game loading by combining the requests. In other words, when a game is sent to the frontend, so are the guesses.
 
 ## To do:
 - Frontend
