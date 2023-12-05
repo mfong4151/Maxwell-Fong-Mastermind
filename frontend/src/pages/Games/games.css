@@ -1,5 +1,5 @@
 #game-items{
-    max-height: 70%;
+    max-height: 70vh;
     min-width:45%;
     overflow-y: auto;
 }
