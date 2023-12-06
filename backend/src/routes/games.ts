@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { optionallizeJWT, validate } from "../middleware";
-import { getGame, getGameGuesses, postGame, postGameGuess } from "../controllers/games";
-import { gameGetValidations, gamePostValidations, gameGuessPostValidations  } from "../validations/game";
+import { authenticateJWT, optionallizeJWT, validate } from "../middleware";
+import { getGame, getGameGuesses, postGame, postGameGuess, postGamePlayer } from "../controllers/games";
+import { gameGetValidations, gamePostValidations, gameGuessPostValidations, gamePlayerPostValidations  } from "../validations/game";
 import { gameGuessPostSanitzations } from "../sanitizations/game";
 
 /*
@@ -16,5 +16,6 @@ gameRouter
     .get('/:id', gameGetValidations, validate, getGame)
     .post('/', gamePostValidations, optionallizeJWT ,validate, postGame )
     .post('/:gameId/guesses', gameGuessPostValidations, optionallizeJWT, validate, gameGuessPostSanitzations, postGameGuess  )
+    .post('/:gameId/players', gamePlayerPostValidations, authenticateJWT, validate, postGamePlayer)
 
 export default gameRouter;

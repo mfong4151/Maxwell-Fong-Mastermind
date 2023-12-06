@@ -1,4 +1,5 @@
-export * from './post/post';
+export * from './post';
 export * from './postGuess';
 export * from './get';
 export * from './getGuesses';
+export * from './postGamePlayer';

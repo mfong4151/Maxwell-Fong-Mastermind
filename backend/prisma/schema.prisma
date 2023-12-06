@@ -28,7 +28,8 @@ model Game {
   numGuesses Int          
   secretCode String[]     
   createdAt  DateTime     @default(now()) 
-  updatedAt  DateTime     @updatedAt 
+  updatedAt  DateTime     @updatedAt
+  endsAt     DateTime       
   players    GamePlayer[]
   guesses    GameGuess[]
   @@index(type: BTree, fields: [id])

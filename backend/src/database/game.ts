@@ -1,4 +1,4 @@
-import { Game, Prisma, GameGuess} from "@prisma/client";
+import { Game, Prisma, GameGuess, GamePlayer} from "@prisma/client";
 import prisma from "./db";
 import { gameGuessNoFK, GameWithPlayers} from "../types";
 
@@ -33,7 +33,6 @@ export const createGame = (secretCode: string[], numGuesses: number, playerIds: 
 )
 
 //Used for getting a current game
-//TODO: figure out why the typing is weird here
 export const findGameById = (id: number, isCheckingScore: boolean = false): Promise<Partial<Game> | null> => (
     prisma.game.findUnique({
         where: {id},
@@ -114,3 +113,23 @@ export const findGuessesByGameId  = (gameId: number): Promise<Partial<GameGuess>
     })
 
 ) 
+
+export const createGamePlayer = (playerId: number, gameId: number): Promise<GamePlayer> => (
+    prisma.gamePlayer.create({
+        data: {
+
+            game:{
+                connect:{
+                    id: gameId
+                }
+            },
+            player:{
+                connect:{
+                    id: playerId
+                }
+            }
+            
+        }
+    })
+)
+    
