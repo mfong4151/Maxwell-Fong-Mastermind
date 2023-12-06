@@ -9,22 +9,19 @@ import { gameGuessNoFK, GameWithPlayers} from "../types";
 
 export const createGame = (secretCode: string[], numGuesses: number, playerIds: number[] = [])
 : Promise<Partial<Game>> => (
-
     prisma.game.create({
         data:{
             secretCode,
             numGuesses,
             players: {
                 create: 
-                    playerIds.map((id: number) => (
-                    {
+                    playerIds.map((id: number) => ({
                         player: {
                             connect:{
                                 id
                             }
                         }
-                    }
-                ))
+                    }))
             }
         },
         select:  {

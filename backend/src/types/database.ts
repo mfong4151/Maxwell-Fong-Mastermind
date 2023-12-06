@@ -12,3 +12,10 @@ export interface GameWithPlayers extends Game{
 }
 
 export type CheckablePlayers = Pick<GamePlayer, 'id' | 'playerId'>
+
+//Because its so different from the default User object, I create a new interface instead
+export interface UserProfile{
+    username: string,
+    gamesWon: number,
+    totalGames: number,
+}

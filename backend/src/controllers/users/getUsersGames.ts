@@ -19,7 +19,6 @@ export const getUsersGames = async (req: Request, res: Response): Promise<Respon
 
         }
 
-
     } catch (error: unknown) {
         return handleControllerErrors(res, error, "user's games")
 

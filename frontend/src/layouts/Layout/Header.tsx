@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useErrors } from '../../hooks';
 import { useGame } from '../../context/GameContext';
 import { ADD_SESSION_USER } from '../../context/GameReducer';
-
+import WinLoss from './WinLoss';
 interface Props{
 
 }
@@ -65,6 +65,7 @@ const Header:React.FC<Props> = () => {
             <button id='logout' onClick={handleOnClick}>
               Log out
             </button>
+            <WinLoss wins={state?.sessionUser?.gamesWon} total={state?.sessionUser?.totalGames} /> 
             </>
           :
             <button id='login' onClick={handleOnClick}>

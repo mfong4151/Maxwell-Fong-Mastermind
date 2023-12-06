@@ -3,6 +3,7 @@ import { handleControllerErrors } from "../utils";
 import { createUser } from "../../database/auth";
 import {User} from '@prisma/client';
 import {hash} from 'bcrypt';
+import { controllerError } from "../../types";
 
 export const signUp = async (req: Request, res: Response): Promise<Response> => {
     const {username, password} = req.body as {username: string, password: string};
@@ -17,7 +18,7 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
                 .location(`/api/v1/users/${user.id}`)
                 .json({user});
 
-    } catch (error: unknown) {
+    } catch (error: controllerError) {
         return handleControllerErrors(res, error, 'user')
 
     }

@@ -17,7 +17,6 @@ const Game: React.FC = () => {
   const [guessInput, setGuessInput] = guessInputState;
   const game = state?.games[Number(params.id)];
   const guesses = state?.guesses[Number(params.id)];
-  
   useClearErrorsEffect(guessInput)
 
   useEffect(() => {
@@ -38,14 +37,14 @@ const Game: React.FC = () => {
 
   }, []);
 
-  if(!(game)){
+  if(!game || !guesses){
     return <div>Loading game data...</div>
   }
-
+  
   return (
     <div className='flex-center flex-col'>
       <GuessInput errorsOptions={errorsOptions} guessInputState= {guessInputState}/>
-      <div>Remaining Attempts: {game.numGuesses - Object.values(guesses).length}</div>
+      <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>
       <GuessHistory guesses={guesses} />
       <Errors errors={errors}/>
     </div>

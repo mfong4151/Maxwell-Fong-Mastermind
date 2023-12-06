@@ -9,7 +9,7 @@ const Errors: React.FC<Props> = ({ errors }) => {
     return (
         <>
             {
-                !!errors.length &&
+                errors && !!errors.length &&
                 <ul id='errors'>
                     {errors.map((error: string, idx: number) => <li> {error} </li>)}
                 </ul>

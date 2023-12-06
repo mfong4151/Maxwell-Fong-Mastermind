@@ -30,7 +30,7 @@ const MyGames: React.FC = () => {
         
     }, [dispatch]);
 
-    return (
+    return ( 
     <ul id='game-items'>
 
         {Object.values(games).map((game: any, idx: number) => (

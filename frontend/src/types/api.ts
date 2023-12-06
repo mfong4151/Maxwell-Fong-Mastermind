@@ -5,9 +5,9 @@ export interface Game {
     secretCode: string[];
     guesses: Guess[];
     createdAt: string;
-    _count: {
-        players: number
-    };
+    roundNo: number,
+    numPlayers: number
+    remainingGuesses: number 
 }
 
 export interface Guess {

@@ -7,7 +7,7 @@ interface Props{
     game: Game
 }
 const MyGameItem:React.FC<Props> = ({game}) => {
-    const {id, numGuesses, _count} = game;
+    const {id, numGuesses, roundNo, numPlayers } = game;
     const navigate = useNavigate();
 
     const handleOnClick = (e:any):void => {
@@ -18,8 +18,8 @@ const MyGameItem:React.FC<Props> = ({game}) => {
         <li className='flex-between align-center game-item'>
             <div className='flex-between align-center game-item-about'>
                 <p>Game no: {id} </p>
-                <p>Rounds: {numGuesses}</p>
-                <p>Players: {_count?.players} </p>
+                <p>Rounds: {roundNo}/{numGuesses}</p>
+                <p>Players: {numPlayers} </p>
             </div>
             <button onClick={handleOnClick}>
                 Play
