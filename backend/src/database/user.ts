@@ -31,12 +31,14 @@ export const _findGamesByUserIdPrisma = (userId: number): Promise<Partial<Game>[
 //The second LEFT JOIN: grabs the winning condition of gamesGuesses, this is given by the latest guess for that game
 //The third LEFT JOIN: grabs the count of the number of players
 //The fourth LEFT JOIN is used to filter the games where the player is a player in them
+//TODO: Edit to make it such that it excludes ended games
 export const findGamesByUserId  = (playerId: number): Promise<Partial<Game>[]> =>(
     prisma.$queryRaw`
         SELECT 
             g.id, 
             g."numGuesses", 
             g."createdAt",
+            g."endsAt",
             cp."numPlayers",
             CAST(g."numGuesses" - COUNT(gg.id) AS INTEGER) AS "currGuesses",
             CAST(COUNT(gg.id) AS INTEGER) AS "roundNo"

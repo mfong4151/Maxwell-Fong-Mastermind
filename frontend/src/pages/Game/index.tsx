@@ -6,47 +6,56 @@ import Errors from '../../components/Errors';
 import { SERVER_URL } from '../../utils/constants';
 import { useGame } from '../../context/GameContext';
 import { useParams } from 'react-router-dom';
+import Timer from './Timer';
+import Players from './Players';
 
 const Game: React.FC = () => {
   const params = useParams();
   const id: number = Number(params.id);
   const errorsOptions = useErrors();
-  const {errors, setErrors, useClearErrorsEffect} = errorsOptions;
-  const {state, dispatch} = useGame();
+  const { errors, setErrors, useClearErrorsEffect } = errorsOptions;
+  const { state, dispatch } = useGame();
   const guessInputState = useState<string>('')
   const [guessInput, setGuessInput] = guessInputState;
   const game = state?.games[Number(params.id)];
   const guesses = state?.guesses[Number(params.id)];
+  const endsAt = game?.endsAt;
   useClearErrorsEffect(guessInput)
 
   useEffect(() => {
-    const fetchGame = async() =>{
+    const fetchGame = async () => {
       try {
         const res = await fetch(`${SERVER_URL}/api/v1/games/${id}`)
-        if(res.ok){
+        if (res.ok) {
           const data = await res.json()
-          dispatch({type: 'ADD_GAME', payload: data })
+          dispatch({ type: 'ADD_GAME', payload: data })
         }
 
       } catch (error: any) {
         setErrors(error)
       }
     }
-    
+
     fetchGame()
 
   }, []);
 
-  if(!game || !guesses){
+  if (!game || !guesses) {
     return <div>Loading game data...</div>
   }
-  
+
   return (
-    <div className='flex-center flex-col'>
-      <GuessInput errorsOptions={errorsOptions} guessInputState= {guessInputState}/>
-      <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>
-      <GuessHistory guesses={guesses} />
-      <Errors errors={errors}/>
+    <div className='flex-evenly'>
+      <Timer endsAt={endsAt}/>
+
+      <div className='flex-center flex-col'>
+
+        <GuessInput errorsOptions={errorsOptions} guessInputState={guessInputState} />
+        <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>
+        <GuessHistory guesses={guesses} />
+        <Errors errors={errors} />
+      </div>
+      <Players players={game?.players}/>
     </div>
   );
 };

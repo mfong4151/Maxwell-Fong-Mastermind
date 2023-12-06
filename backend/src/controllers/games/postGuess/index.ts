@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { generateLocation, generateNotFoundMessage, handleControllerErrors } from "../../utils";
 import { createGameGuess, findGameById } from "../../../database/game";
-import { Game, GameGuess, GamePlayer } from "@prisma/client";
+import { GameGuess } from "@prisma/client";
 import { gameGuessNoFK, GameWithPlayers} from "../../../types";
 import { _checkGamePlayable } from "./_checkGamePlayable";
 import { _scoreRound } from "./_scoreRound";
@@ -9,8 +9,6 @@ import {  _isPlayerPermitted } from "./_checkPlayerPermission";
 
 /*
 TODO: 
-1. Test helper functions
-2. Improve response logic status codes
 3. Double check logic for optional playerId (NOT IMPLEMENTED)
 */
 

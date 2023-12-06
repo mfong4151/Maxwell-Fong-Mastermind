@@ -50,6 +50,7 @@ export const findGameById = (id: number, isCheckingScore: boolean = false): Prom
             id: true,
             numGuesses: true,
             createdAt: true,
+            endsAt: true,
             secretCode: isCheckingScore,
             players: {
                 select: {

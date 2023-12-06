@@ -7,19 +7,33 @@ interface Props{
     game: Game
 }
 const MyGameItem:React.FC<Props> = ({game}) => {
-    const {id, numGuesses, roundNo, numPlayers } = game;
-    const navigate = useNavigate();
+    const {id, numGuesses, roundNo, numPlayers, endsAt} = game;
+    const endDateTime: Date | null = endsAt ? new Date(endsAt) : null 
 
+
+    const navigate = useNavigate();
+    
     const handleOnClick = (e:any):void => {
         navigate(`/game/${id}`)    
     }
 
     return (
         <li className='flex-between align-center game-item'>
-            <div className='flex-between align-center game-item-about'>
+            <div className='flex-col game-item-about '>
+                <div className='flex-between'>
                 <p>Game no: {id} </p>
                 <p>Rounds: {roundNo}/{numGuesses}</p>
                 <p>Players: {numPlayers} </p>
+
+                </div>
+                <div className='flex-center'>
+                    { endDateTime && 
+                    `Ends on: ${endDateTime?.getFullYear()}/${endDateTime?.getMonth() + 1}/${endDateTime.getDate()},
+                    ${endDateTime?.getHours()}:${endDateTime?.getMinutes()}:${endDateTime?.getSeconds()}
+                    `
+                    }
+                </div>
+                
             </div>
             <button onClick={handleOnClick}>
                 Play

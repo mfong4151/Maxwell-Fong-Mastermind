@@ -5,6 +5,7 @@ export interface Game {
     secretCode: string[];
     guesses: Guess[];
     createdAt: string;
+    endsAt?: Date | null;
     roundNo: number,
     numPlayers: number
     remainingGuesses: number 

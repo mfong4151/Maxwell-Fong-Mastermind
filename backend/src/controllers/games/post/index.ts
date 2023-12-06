@@ -44,8 +44,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
         
 
         if (secretCode.length){
-            console.log(endsAt)
-            const endDateTime: string = endsAt ? _convertToEndDate(endsAt) : ''          
+            const endDateTime: string = endsAt ? _convertToEndDate(endsAt) : ''   //TODO: Move this higher in scope?
             const game: Awaited<Partial<Game>> = await createGame(
                                                         secretCode, 
                                                         numGuesses, 

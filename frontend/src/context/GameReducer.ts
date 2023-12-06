@@ -31,7 +31,6 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       }
     }
     
-    //TODO: test this out
     case ADD_GUESS:{
 
       const guess: Guess = action.payload;
