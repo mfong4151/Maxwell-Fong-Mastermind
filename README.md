@@ -68,14 +68,96 @@ Code for the above requirement is produced in /backend/src/controllers/game/util
 - websockets
 - scoreboard
 
+## Database Schema:
+
+```bash
+User
++----------------+-----------------+
+| Field          | Type            |
++----------------+-----------------+
+| id             | Int             |
+| username       | String          |
+| hashedPassword | String          |
+| games          | GamePlayer[]    |
+| guesses        | GameGuess[]     |
+| createdAt      | DateTime        |
+| updatedAt      | DateTime        |
++----------------+-----------------+
+
+Game
++------------+-------------+
+| Field      | Type        |
++------------+-------------+
+| id         | Int         |
+| numGuesses | Int         |
+| secretCode | String[]    |
+| createdAt  | DateTime    |
+| updatedAt  | DateTime    |
+| endsAt     | DateTime    |
+| players    | GamePlayer[]|
+| guesses    | GameGuess[] |
++------------+-------------+
+
+GamePlayer
++------------+---------+
+| Field      | Type    |
++------------+---------+
+| id         | Int     |
+| playerId   | Int     |
+| gameId     | Int     |
+| createdAt  | DateTime|
+| updatedAt  | DateTime|
+| game       | Game    |
+| player     | User    |
++------------+---------+
+
+GameGuess
++--------------+------------+
+| Field        | Type       |
++--------------+------------+
+| id           | Int        |
+| playerId     | Int?       |
+| gameId       | Int        |
+| numCorrectLoc| Int        |
+| numCorrectNum| Int        |
+| guesses      | String[]   |
+| isGameWon    | Boolean    |
+| createdAt    | DateTime   |
+| updatedAt    | DateTime   |
+| game         | Game       |
+| player       | User?      |
++--------------+------------+
+
+
+```
+
 ## Backend Routes:
 
-POST api/v1/games
-POST api/v1/games/:gameId/guesses
-GET api/v1/games
+API Documentation for Mastermind Game Project
+Base URL
 
-POST api/v1/auth/login
-POST api/v1/auth/signup
+/api
+
+### V1 Endpoints
+
+User Endpoints
+    GET /users/games: Retrieve current games for a user.
+    GET /users/: Get user details.
+    GET /users/profiles: Get user profile information.
+
+Game Endpoints
+    GET /games/{gameId}/guesses: Retrieve guesses for a specific game.
+    GET /games/{id}: Get details of a specific game.
+    POST /games/: Create a new game.
+    POST /games/{gameId}/guesses: Submit a guess in a game.
+    POST /games/{gameId}/players: Add players to a game.
+
+Authentication Endpoints
+    POST /auth/signup: Register a new user.
+    POST /auth/login: Login for existing users.
+
+NEEDS DOCUMENTATION ON PARAMETERS
+
 
 ## Problems: 
 

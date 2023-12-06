@@ -7,7 +7,7 @@ interface Props{
 const WinLoss:React.FC<Props> = ({wins, total}) => {
   return (
     <p>
-        {`Wins: ${wins} Games Played: ${total}`}
+        {`Wins: ${wins} Total Games: ${total}`}
     </p>
     
   );

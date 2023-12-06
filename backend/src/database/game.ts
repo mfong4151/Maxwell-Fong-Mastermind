@@ -1,36 +1,46 @@
 import { Game, Prisma, GameGuess, GamePlayer} from "@prisma/client";
 import prisma from "./db";
 import { gameGuessNoFK, GameWithPlayers} from "../types";
+import { DefaultArgs } from "@prisma/client/runtime/library";
 
 // Used for initializing a game
 // Creates a game, then tries to create GamePlayers
 // If an undefined is passed as playerIds, at runtime it is implicitly handled as an empty array
 // In the case where no player objects are sent, the game impliclty only has a single, not logged in player.
 
-export const createGame = (secretCode: string[], numGuesses: number, playerIds: number[] = [])
-: Promise<Partial<Game>> => (
-    prisma.game.create({
-        data:{
-            secretCode,
-            numGuesses,
-            players: {
-                create: 
-                    playerIds.map((id: number) => ({
-                        player: {
-                            connect:{
-                                id
-                            }
+export const createGame = (
+                            secretCode: string[], 
+                            numGuesses: number, 
+                            playerIds: number[] = [],
+                            endDateTime: string = ''
+                            )
+: Promise<Partial<Game>> => {
+    console.log(endDateTime)
+    const data: any = {
+        secretCode,
+        numGuesses,
+        players: {
+            create: 
+                playerIds.map((id: number) => ({
+                    player: {
+                        connect:{
+                            id
                         }
-                    }))
-            }
+                    }
+                }))
         },
+        ...(endDateTime && {endsAt: endDateTime})
+    }
+
+    return prisma.game.create({
+        data: data,
         select:  {
             id: true,
             numGuesses: true,
             players: true,
         }
     })
-)
+}
 
 //Used for getting a current game
 export const findGameById = (id: number, isCheckingScore: boolean = false): Promise<Partial<Game> | null> => (
@@ -114,7 +124,7 @@ export const findGuessesByGameId  = (gameId: number): Promise<Partial<GameGuess>
 
 ) 
 
-export const createGamePlayer = (playerId: number, gameId: number): Promise<GamePlayer> => (
+export const createGamePlayer = ( gameId: number, playerId: number): Promise<GamePlayer> => (
     prisma.gamePlayer.create({
         data: {
 

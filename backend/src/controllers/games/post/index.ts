@@ -6,6 +6,7 @@ import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors } from 
 import { _generateRandomCode} from "./_generateRandomCode";
 import {  GameOptions } from "../../../types/interface";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { _convertToEndDate } from "./_convertToEndDate";
 
 //TODOS:
 // 1. Fix the players array options, im not sure if its better practice to ask for an empty array, or imply theres won
@@ -19,10 +20,13 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 interface ReqBody{
     num: number,
     numGuesses:number
+    endsAt?: number //expected to be the length of time in unix timestamp
 }
 
 export const postGame = async (req: Request, res: Response): Promise<Response> => {
     const {num, numGuesses} = req.body as ReqBody;
+    let endsAt: number| undefined = req.body.endsAt;
+    console.log(endsAt)
     let playerIds = req.body.playerIds as number[];
     const userId: number | undefined = req.userId;
 
@@ -37,9 +41,17 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
 
     try {
         const secretCode: string[] = await _generateRandomCode({num})
+        
 
-        if (secretCode.length){               
-            const game: Awaited<Partial<Game>> = await createGame(secretCode, numGuesses, playerIds);
+        if (secretCode.length){
+            console.log(endsAt)
+            const endDateTime: string = endsAt ? _convertToEndDate(endsAt) : ''          
+            const game: Awaited<Partial<Game>> = await createGame(
+                                                        secretCode, 
+                                                        numGuesses, 
+                                                        playerIds,
+                                                        endDateTime
+                                                        );
             
             return res
                     .status(201)
@@ -49,7 +61,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
         }else{
             return res
                     .status(500)
-                    .json({errors: ['The game could not be created due to an internal service issue.']})
+                    .json({errors: ['The game could not be created due to a third party API issue.']})
         }            
     } catch (error: controllerError) {
         

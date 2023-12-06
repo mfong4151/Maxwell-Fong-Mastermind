@@ -8,8 +8,8 @@ import { createGamePlayer } from "../../database/game";
 
 //Used for adding players to a game
 export const postGamePlayer  = async (req: Request, res: Response): Promise<Response> => {
-    const gameId = Number(req.params.gameId as string);
-    const playerId = Number(req.body.playerId as string) ;
+    const gameId: number = Number(req.params.gameId as string);
+    const playerId: number = req.body.playerId as number ;
     
     try {
         const game: Awaited<Partial<Game>| null>  = await findGameById(gameId);

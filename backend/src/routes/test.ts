@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Router } from "express";
-import { findGamesByUserId } from "../database/user";
+import { findGamesByUserId, testQuery } from "../database/user";
 
 const testRouter = Router()
 //TODO: add P010 error in handler
@@ -16,7 +16,7 @@ const test = async (req: Request, res: Response): Promise<Response> => {
     
     try {
         const users = await findGamesByUserId(1)
-        console.log(users)
+
         // const user = await testQueryRaw()
         return res.status(200).json(users)
     } catch (error: unknown) {

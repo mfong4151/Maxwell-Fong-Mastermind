@@ -36,11 +36,18 @@ const gameNumGuessesValidation: ValidationChain =
         .custom((numGuesses: number, {req}) => (numGuesses >= req.body.num))
         .withMessage('Guess attempts must be greater than or equal to the code length!')
 
+const gameEndsAtValidation: ValidationChain =
+    body('endsAt')
+        .isInt()
+        .custom(endsAt => endsAt > 0)
+        .withMessage('Key "endsAt" must be a number greater than 0!')
+        .optional()
+
 export const gamePostValidations: ValidationChain[] = [
     gameNumValidation,
     gamePlayerIdsValidation,
     gameNumGuessesValidation,
-        
+    gameEndsAtValidation
 ];
 
 //Guess POST validatons
@@ -66,7 +73,7 @@ export const gameGuessPostValidations: ValidationChain[] = [
 
 //GamePlayer POST validations
 const gameIdNumeric = generateIdValidation(param('gameId'), 'game id')
-const playerIdNumeric = generateIdValidation(param('playerId'), 'player id')
+const playerIdNumeric = generateIdValidation(body('playerId'), 'player id')
 
 export const gamePlayerPostValidations: ValidationChain[] =[
     gameIdNumeric,
