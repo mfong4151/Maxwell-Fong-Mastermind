@@ -14,7 +14,12 @@ const MyGameItem:React.FC<Props> = ({game}) => {
     const navigate = useNavigate();
     
     const handleOnClick = (e:any):void => {
-        navigate(`/game/${id}`)    
+
+        if(numPlayers > 1){
+            navigate(`/lobby/${id}`)
+        } else{
+            navigate(`/game/${id}`)    
+        }
     }
 
     return (

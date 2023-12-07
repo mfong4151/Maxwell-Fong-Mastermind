@@ -18,11 +18,11 @@ const Game: React.FC = () => {
   const { errors, setErrors, useClearErrorsEffect } = errorsOptions;
   const { state, dispatch } = useGame();
   const guessInputState = useState<string>('')
-  const [guessInput, setGuessInput] = guessInputState;
   const game = state?.games[Number(params.id)];
   const guesses = state?.guesses[Number(params.id)];
   const endsAt = game?.endsAt;
-  useClearErrorsEffect(guessInput)
+
+  useClearErrorsEffect(guessInputState[0])
 
   useEffect(() => {
     const fetchGame = async () => {

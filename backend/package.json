@@ -21,7 +21,8 @@
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
-    "lru-cache": "^10.1.0"
+    "lru-cache": "^10.1.0",
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -31,6 +32,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.10.3",
+    "@types/socket.io": "^3.0.2",
     "chai": "^4.3.10",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
