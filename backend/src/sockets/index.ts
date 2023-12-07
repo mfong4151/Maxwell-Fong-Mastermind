@@ -9,11 +9,17 @@ const initializeSocket = (server: any) => {
     }
   })
   
+  
+
   io.on('connection',(socket: Socket) => {
-    console.log(`User with id ${socket.id} has connected`)
+    
+    socket.on('joinRoom', room => {
+      socket.join(room);
+
+    })
     
     socket.on("guess", guess =>{
-      socket.broadcast.emit('recieve-guess', guess)
+      socket.to(guess.roomId).emit('recieveGuess', guess)
     })
   })
   

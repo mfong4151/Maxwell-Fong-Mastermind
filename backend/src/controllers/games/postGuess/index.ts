@@ -24,7 +24,7 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
         gameConfig = lruGames.get(gameId);
         playerIds = lruPlayers.get(gameId);
 
-        if (!gameConfig){
+        if (!gameConfig || !playerIds){
             gameConfig = await findConfigById(gameId);
 
             if (gameConfig){

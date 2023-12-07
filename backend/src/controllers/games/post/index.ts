@@ -60,7 +60,8 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
             return res
                     .status(500)
                     .json({errors: ['The game could not be created due to a third party API issue.']})
-        }            
+        }           
+
     } catch (error: controllerError) {
         
         if(error instanceof PrismaClientKnownRequestError 
@@ -73,8 +74,6 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
             return handleControllerErrors(res, error, "game")
 
         }
-
-
     }
 }
 

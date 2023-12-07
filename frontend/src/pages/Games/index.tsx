@@ -5,6 +5,7 @@ import MyGames from './MyGames';
 import NewGameForm from '../../components/NewGameForm';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from '../../utils';
+import MultiplayerInvite from './MultiplayerInvite';
 
 const Games: React.FC = () => {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Games: React.FC = () => {
           <h2>Single Player Mode</h2>
 
           <NewGameForm/>
-
+          <MultiplayerInvite/>
         </div>
       </div>
  
