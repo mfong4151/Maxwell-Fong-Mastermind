@@ -26,7 +26,6 @@ interface ReqBody{
 export const postGame = async (req: Request, res: Response): Promise<Response> => {
     const {num, numGuesses} = req.body as ReqBody;
     let endsAt: number| undefined = req.body.endsAt;
-    console.log(endsAt)
     let playerIds = req.body.playerIds as number[];
     const userId: number | undefined = req.userId;
 

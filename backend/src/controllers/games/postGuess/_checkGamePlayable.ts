@@ -1,15 +1,18 @@
-import { Game } from "@prisma/client";
+import { Game, GameGuess } from "@prisma/client";
+import { GameConfig } from "../../../types";
 
 //Called at the top level of the postGame route to make sure the game is playable, i.e. if it has not been won.
-export const _checkGamePlayable = (gameConfig: Partial<Game> | any, incomingGuesses: string[]): string[] =>{
+export const _checkGamePlayable = (gameConfig: GameConfig, pastGuesses: any[], incomingGuesses: string[]): string[] =>{
     const errors: string [] = []
     
-    const {numGuesses, secretCode, guesses} = gameConfig;
+    const { secretCode, numGuesses, endsAt} = gameConfig;
 
-    if (guesses.length && guesses.at(-1).isGameWon){
+    const isOver = endsAt ? new Date() >= new Date(endsAt) : false;
+
+    if (pastGuesses.length && pastGuesses.at(-1)!.isGameWon){
         errors.push('This game has already been won!')
 
-    } else if (guesses.length >= numGuesses!) {
+    } else if (pastGuesses.length >= numGuesses! || isOver ) {
         errors.push('This game is already over and you have lost!')
     
     } else if (secretCode!.length !== incomingGuesses.length){

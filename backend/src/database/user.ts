@@ -31,7 +31,7 @@ export const _findGamesByUserIdPrisma = (userId: number): Promise<Partial<Game>[
 //The second LEFT JOIN: grabs the winning condition of gamesGuesses, this is given by the latest guess for that game
 //The third LEFT JOIN: grabs the count of the number of players
 //The fourth LEFT JOIN is used to filter the games where the player is a player in them
-//TODO: Edit to make it such that it excludes ended games
+//TODO: CHECK the and to see if it excludes ended games
 export const findGamesByUserId  = (playerId: number): Promise<Partial<Game>[]> =>(
     prisma.$queryRaw`
         SELECT 
@@ -58,16 +58,17 @@ export const findGamesByUserId  = (playerId: number): Promise<Partial<Game>[]> =
         ON cp."gameId" = g.id
         LEFT JOIN "gamePlayers" gp on gp."gameId" = g.id
         WHERE gp."playerId" = ${playerId}
+        AND (g."endsAt" > CURRENT_DATE OR g."endsAt" IS NULL)
         GROUP BY g.id, lg."isGameWon", cp."numPlayers"
         HAVING COUNT(gg.id) < g."numGuesses" AND (lg."isGameWon" IS NULL OR lg."isGameWon" = false) 
         ORDER BY g."createdAt" desc;
         ` as Promise<Partial<Game>[]>
 )
 
-export const testQuery = async(playerId: number) => (
+export const testQuery = async() => (
     prisma.$queryRaw`
-    SELECT "gameId", CAST(COUNT("playerId") AS INTEGER) FROM "gamePlayers"
-    GROUP BY "gameId"
+       SELECT * FROM games
+       WHERE  ("endsAt" > CURRENT_DATE OR "endsAt" IS NULL)
     ;`    
 )
  

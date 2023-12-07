@@ -1,6 +1,6 @@
 import { Game, Prisma, GameGuess, GamePlayer} from "@prisma/client";
 import prisma from "./db";
-import { gameGuessNoFK, GameWithPlayers} from "../types";
+import { GameConfig, gameGuessNoFK, GameWithPlayers} from "../types";
 import { DefaultArgs } from "@prisma/client/runtime/library";
 
 // Used for initializing a game
@@ -15,7 +15,6 @@ export const createGame = (
                             endDateTime: string = ''
                             )
 : Promise<Partial<Game>> => {
-    console.log(endDateTime)
     const data: any = {
         secretCode,
         numGuesses,
@@ -43,7 +42,8 @@ export const createGame = (
 }
 
 //Used for getting a current game
-export const findGameById = (id: number, isCheckingScore: boolean = false): Promise<Partial<Game> | null> => (
+
+export const findGameById = (id: number ): Promise<Partial<Game> | null> => (
     prisma.game.findUnique({
         where: {id},
         select:{
@@ -51,12 +51,16 @@ export const findGameById = (id: number, isCheckingScore: boolean = false): Prom
             numGuesses: true,
             createdAt: true,
             endsAt: true,
-            secretCode: isCheckingScore,
             players: {
                 select: {
                     id: true,
                     playerId: true,
-
+                    player:{
+                        select:{
+                            id: true,
+                            username: true
+                        }
+                    }
                 }
             },
             guesses: {
@@ -75,6 +79,31 @@ export const findGameById = (id: number, isCheckingScore: boolean = false): Prom
         }
     })
 )
+
+//Used for getting the config
+export const findConfigById = (id: number): Promise<GameConfig | null> =>(
+    prisma.game.findUnique({
+        where: {
+            id
+        },
+        select:{
+            id: true,
+            secretCode: true,
+            endsAt: true,
+            guesses: true,
+            numGuesses: true,
+            players:{
+                select:{
+                    id: true,
+                    playerId: true,
+                }
+            }
+        }
+    })
+
+)
+
+ 
 
 //Used for creating a game guess
 export const createGameGuess = 

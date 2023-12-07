@@ -6,7 +6,7 @@ interface CorrectNums{
 }
 
 //Assumes that secret code and guesses are the same length. (see _checkGamePlayable.ts)
-export const _scoreRound = (secretCode: string[], guesses: string[]): gameGuessNoFK => {
+export const _scoreRound = (secretCode: string[],guesses: string[]): gameGuessNoFK => {
   
     const {numCorrectLoc, numCorrectNum}: CorrectNums  =_scoreCorrectNums(secretCode, guesses);
 

@@ -1,4 +1,4 @@
-import type { Prisma, Game, GamePlayer} from '@prisma/client';
+import type { Prisma, Game, User, GamePlayer, GameGuess} from '@prisma/client';
 
 /*
     Because of the way that prisma implements foreign key checking on joins tables, 
@@ -18,4 +18,15 @@ export interface UserProfile{
     username: string,
     gamesWon: number,
     totalGames: number,
+
+}
+
+export interface GameConfig{
+    id: number;
+    numGuesses: number;
+    guesses: GameGuess[];
+    secretCode: string[];
+    endsAt: Date | null;
+    players: any[]
+    
 }
