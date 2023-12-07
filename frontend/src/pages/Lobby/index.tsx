@@ -7,7 +7,7 @@ import { ADD_GUESS } from '../../context/GameReducer';
 
 const Lobby: React.FC = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
-  const {state, dispatch} = useGame() 
+  const { dispatch} = useGame() 
   const params = useParams()
   const lobbyId  = Number(params.id);
 
@@ -15,8 +15,8 @@ const Lobby: React.FC = () => {
   useEffect(() => {
     socket.connect()
     socket.on('connect', () => setIsConnected(true))
-
-    socket.on("recieve-guess", guess => {
+    socket.emit('joinRoom', lobbyId)
+    socket.on("recieveGuess", guess => {
       dispatch(guess.dispatch)
     }
 

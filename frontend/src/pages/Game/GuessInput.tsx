@@ -17,7 +17,6 @@ const GuessInput: React.FC<Props> = ({errorsOptions, guessInputState }) => {
   const { id } = useParams();
   const {dispatch} = useGame();
   const location = useLocation()
-  console.log(location)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -35,7 +34,7 @@ const GuessInput: React.FC<Props> = ({errorsOptions, guessInputState }) => {
       if (res.ok) {
         dispatch({type: ADD_GUESS, payload: data})
         if(socket.connected){
-            socket.emit('guess', ({dispatch:{type: ADD_GUESS, payload: data}, user: socket.id}))
+            socket.emit('guess', ({dispatch:{type: ADD_GUESS, payload: data}, user: socket.id, roomId: Number(id)}))
 
         }
       }
