@@ -8,6 +8,8 @@ import { useGame } from '../../context/GameContext';
 import { useParams } from 'react-router-dom';
 import Timer from './Timer';
 import Players from './Players';
+import { isLoggedIn } from '../../utils';
+import Hints from './Hints';
 
 const Game: React.FC = () => {
   const params = useParams();
@@ -45,10 +47,13 @@ const Game: React.FC = () => {
   }
 
   return (
-    <div className='flex-evenly'>
+    <div id='game' className='flex-evenly'>
+      <div>
+      
       <Timer endsAt={endsAt}/>
-
-      <div className='flex-center flex-col'>
+        {!isLoggedIn() && <Hints/>}
+      </div>
+      <div className='align-center flex-col'>
 
         <GuessInput errorsOptions={errorsOptions} guessInputState={guessInputState} />
         <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>

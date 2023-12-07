@@ -11,6 +11,7 @@ body {
 .flex-center-right,
 .flex-evenly,
 .flex-between,
+.justify-center,
 .align-center,
 .flex-row,
 .flex-col{
@@ -21,7 +22,9 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+.justify-center{
+    justify-content: center;
+}
 .align-center{
     align-items: center;
 }
@@ -39,7 +42,6 @@ body {
 
 .flex-evenly{
     justify-content: space-evenly;
-    align-items: center;
 }
 
 .flex-row{

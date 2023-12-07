@@ -17,7 +17,7 @@ export const postGamePlayer  = async (req: Request, res: Response): Promise<Resp
         
         if(!game || !user){
             const notFoundResource: string = `${game && 'game'}, ${user && 'user'}`
-
+            
             return res
                     .status(404)
                     .json({errors: [`The following resources were not found ${notFoundResource}`]})

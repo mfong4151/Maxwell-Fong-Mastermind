@@ -2,6 +2,7 @@ import { ValidationChain, body, param} from 'express-validator';
 import { generateIdValidation } from './utils';
 
 const paramIdValidation = generateIdValidation(param('id'), 'game id')
+const paramGameValidation = generateIdValidation(param('gameId'), 'game id')
 
 //Game GET validations
 export const gameGuessGetValidations: ValidationChain[] = [
@@ -11,6 +12,10 @@ export const gameGuessGetValidations: ValidationChain[] = [
 
 export const gameGetValidations: ValidationChain[] = [
     paramIdValidation    
+];
+
+export const gameHintGetValidations: ValidationChain[] =[
+    paramGameValidation
 ];
 
 //Game post validations

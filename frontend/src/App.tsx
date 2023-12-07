@@ -4,8 +4,8 @@ import { Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 import Game from './pages/Game';
 import Games from './pages/Games';
 import NewGame from './components/NewGameForm';
-import Login from './pages/Login';
 import { GameProvider } from './context/GameContext';
+import LoginPage from './pages/Login';
 
 const App: React.FC = () => {
 
@@ -14,11 +14,11 @@ const App: React.FC = () => {
           <Router>
             <Layout>
             <Routes>
-              <Route path='/login' element={<Login/>}/>
+              <Route path='/login' element={<LoginPage/>}/>
               <Route path='/games' element={<Games/>} />
               <Route path='/game/new' element={<NewGame />} />
               <Route path='/game/:id' element={<Game />} />
-              <Route path='/' element={<Login/>}/>
+              <Route path='/' element={<LoginPage/>}/>
             </Routes>
             </Layout>
           </Router>

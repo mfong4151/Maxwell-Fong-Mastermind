@@ -50,8 +50,7 @@ const Timer: React.FC<Props> = ({ endsAt }) => {
 
     return (
         <div>
-            <h1>Countdown Timer</h1>
-
+            <h3>Countdown Timer</h3>
             {
                 timeLeft.hours < 0 ?
                     <>

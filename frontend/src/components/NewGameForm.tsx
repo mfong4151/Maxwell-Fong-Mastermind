@@ -41,7 +41,6 @@ const NewGameForm: React.FC = () => {
 
   return (
     <div>
-      <h2>Single Player Mode</h2>
       <form onSubmit={handleSubmit}>
         <div className='flex-col'>
           <div>

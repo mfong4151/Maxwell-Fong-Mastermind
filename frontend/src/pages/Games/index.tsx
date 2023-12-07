@@ -12,6 +12,8 @@ const Games: React.FC = () => {
         <MyGames/>
 
         <div id='games-right'>
+          <h2>Single Player Mode</h2>
+
           <NewGameForm/>
 
         </div>

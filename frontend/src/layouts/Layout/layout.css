@@ -3,7 +3,26 @@ header{
 }
 
 nav{
+    background-color: black;
+    color: white;
     height: 4vh;
+}
+nav > ul{
+    width: 100%
+}
+
+nav > ul >li
+{
+    all: unset;
+}
+
+nav >ul >li:hover{
+    cursor: pointer;
+}
+
+nav a{
+    all: unset;
+    color: white;
 }
 
 main{

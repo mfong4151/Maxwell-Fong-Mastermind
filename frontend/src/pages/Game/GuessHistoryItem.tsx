@@ -14,7 +14,7 @@ const GuessHistoryItem: React.FC<Props> = ({ guess }) => {
     <li className='guess-history-item'>
       {isAllIncorrect
         ?
-        <p>All incorrect</p>
+        <p>All incorrect: {guesses}</p>
         :
         isGameWon
           ?

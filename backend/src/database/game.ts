@@ -1,7 +1,6 @@
-import { Game, Prisma, GameGuess, GamePlayer} from "@prisma/client";
+import { Game, GameGuess, GamePlayer} from "@prisma/client";
 import prisma from "./db";
-import { GameConfig, gameGuessNoFK, GameWithPlayers} from "../types";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import { GameConfig, gameGuessNoFK} from "../types";
 
 // Used for initializing a game
 // Creates a game, then tries to create GamePlayers
@@ -42,7 +41,6 @@ export const createGame = (
 }
 
 //Used for getting a current game
-
 export const findGameById = (id: number ): Promise<Partial<Game> | null> => (
     prisma.game.findUnique({
         where: {id},
@@ -102,8 +100,6 @@ export const findConfigById = (id: number): Promise<GameConfig | null> =>(
     })
 
 )
-
- 
 
 //Used for creating a game guess
 export const createGameGuess = 
