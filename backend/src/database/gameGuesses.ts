@@ -37,7 +37,7 @@ export const createGameGuess = (
                     id: gameId
                 }
             },
-            ...(playerId && { connect:{id: playerId}})
+            ...(playerId && {player:{ connect:{id: playerId}}})
         }
     })
     
