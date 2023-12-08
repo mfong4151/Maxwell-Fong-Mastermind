@@ -1,11 +1,11 @@
 import { Game, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { createGame } from "../../../database/game";
-import { controllerError } from "../../../types";
 import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors } from "../../utils";
 import { _generateRandomCode} from "./_generateRandomCode";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { _convertToEndDate } from "./_convertToEndDate";
+import type { controllerError } from "../../../types";
 
 //After recieving a request, does the following:
 //1. Fire api call to random api to create game.
