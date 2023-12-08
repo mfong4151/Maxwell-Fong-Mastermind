@@ -1,3 +1,4 @@
+import axios from "axios";
 import {  GameOptions} from "../../../types/request"
 
 //Default settings as requested in instructions
@@ -13,10 +14,9 @@ export const _generateRandomCode = async (codeOptions: GameOptions): Promise<str
     const randomCodeUrl: string =  _generateRandomOrgUrl(codeOptions);
 
     try {
-        const res: Response = await fetch(randomCodeUrl)
-        if (res.ok){
-            const plainTextRandom: string = await res.text();
-            return _transposeRandomText(plainTextRandom)
+        const res: any = await axios.get(randomCodeUrl)
+        if (res.data){
+            return _transposeRandomText(res.data)
         }
         return []
 

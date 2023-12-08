@@ -31,6 +31,17 @@ export const findUsersByQuery = (query: string): Promise<Partial< User>[]> => (
 )
 
 
+export const findProfileRaw = (id: number) => (
+    prisma.$queryRaw`
+        SELECT u.username, COUNT(gp.id) FROM users u
+        JOIN "gamePlayers" gp ON gp."playerId" = u.id 
+        WHERE id = ${id}
+        GROUP BY gp."gameId"
+        
+    `
+)
+
+
 export const findUserProfileById = async (id: number) : Promise<UserProfile| null>=> {
 
     const user: Awaited< any | null> = await prisma.user.findUnique({

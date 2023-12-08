@@ -3,6 +3,7 @@ import { generateNotFoundMessage, handleControllerErrors, lruGames } from "../ut
 import { Game } from "@prisma/client";
 import { findGameById, findConfigById } from "../../database/game";
 import type { GameConfig, controllerError } from "../../types";
+import { retrieveGameConfig } from "./utils";
 
 //When a GET request is made to get the game, we cache the players and the games.
 //We do this because we assume that attempts to play the game are made later on after a game is accessed.
@@ -11,14 +12,8 @@ export const getGame = async (req: Request, res: Response): Promise<Response> =>
     
     try {
         const game: Awaited<Partial<Game | null>> = await findGameById(id);
-        const gameConfig: Awaited<GameConfig | null> = await findConfigById(id);   
+        await retrieveGameConfig(id);   
         
-        //In the case that the game exists, we cache the secretCode, end date for use in postGuess
-        //We also cache the game player players
-        if (gameConfig){
-            lruGames.set(gameConfig.id!, gameConfig)
-        }
-
         if (game){
             return res.status(200).json(game);
             
