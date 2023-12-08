@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { verifyToken } from '../jwtConfig';
+import { Request, Response, NextFunction } from "express";
+import { verifyToken } from "../jwtConfig";
 
 interface Token{
     userId: number, 
@@ -8,20 +8,20 @@ interface Token{
 };
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
 
     if (!token){
         return res
                 .status(401)
-                .json({errors:['You are not logged in! Please log in before proceeding']});
+                .json({errors:["You are not logged in! Please log in before proceeding"]});
     } 
 
     const user = verifyToken(token) as Token 
     if (!user){
         return res
                 .status(403)
-                .json({errors:['You are not permitted to access this account!']});
+                .json({errors:["You are not permitted to access this account!"]});
 
     } 
 
@@ -33,8 +33,8 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
 //Used primarily if someone wants to play games without being logged in.
 //Provides resources to produce optional authentication.
 export const optionallizeJWT = (req: Request, res: Response, next: NextFunction): Response | void => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
 
     if (token){
         const user = verifyToken(token) as Token;
@@ -42,7 +42,7 @@ export const optionallizeJWT = (req: Request, res: Response, next: NextFunction)
         if (!user){
             return res
             .status(401)
-            .json({errors: ['Please refresh your login session to proceed.']})
+            .json({errors: ["Please refresh your login session to proceed."]})
 
         }
 

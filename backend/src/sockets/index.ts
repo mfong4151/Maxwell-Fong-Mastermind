@@ -11,15 +11,15 @@ const initializeSocket = (server: any) => {
   
   
 
-  io.on('connection',(socket: Socket) => {
+  io.on("connection",(socket: Socket) => {
     
-    socket.on('joinRoom', room => {
+    socket.on("joinRoom", room => {
       socket.join(room);
 
     })
     
     socket.on("guess", guess =>{
-      socket.to(guess.roomId).emit('recieveGuess', guess)
+      socket.to(guess.roomId).emit("recieveGuess", guess)
     })
   })
   

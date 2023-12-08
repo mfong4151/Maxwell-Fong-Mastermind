@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, useContext, ReactNode } from 'react';
-import gameReducer from './GameReducer';
-import { GameState } from './types';
+import React, { createContext, useReducer, useContext, ReactNode } from "react";
+import gameReducer from "./GameReducer";
+import { GameState } from "./types";
 
 interface Props{
     children: ReactNode;

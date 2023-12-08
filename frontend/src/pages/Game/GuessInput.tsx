@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { SERVER_URL, jwtFetch } from '../../utils';
-import { useLocation, useParams } from 'react-router-dom';
-import { useGame } from '../../context/GameContext';
-import { ADD_GUESS } from '../../context/GameReducer';
-import { ErrorsOptions, StateSetter } from '../../types';
-import { socket } from '../../utils/socket';
+import React, { useState } from "react";
+import { SERVER_URL, jwtFetch } from "../../utils";
+import { useLocation, useParams } from "react-router-dom";
+import { useGame } from "../../context/GameContext";
+import { ADD_GUESS } from "../../context/GameReducer";
+import { ErrorsOptions, StateSetter } from "../../types";
+import { socket } from "../../utils/socket";
 
 interface Props{
   errorsOptions: ErrorsOptions; 
@@ -21,20 +21,20 @@ const GuessInput: React.FC<Props> = ({errorsOptions, guessInputState }) => {
     e.preventDefault();
     
     const body = {
-      guesses: guess.split('')
+      guesses: guess.split("")
     }
 
     try {
       const res = await jwtFetch(
         `${SERVER_URL}/api/v1/games/${id}/guesses`,
         body,
-        'POST'
+        "POST"
       );
       const data = await res.json();
       if (res.ok) {
         dispatch({type: ADD_GUESS, payload: data})
         if(socket.connected){
-            socket.emit('guess', ({dispatch:{type: ADD_GUESS, payload: data}, user: socket.id, roomId: Number(id)}))
+            socket.emit("guess", ({dispatch:{type: ADD_GUESS, payload: data}, user: socket.id, roomId: Number(id)}))
 
         }
       }

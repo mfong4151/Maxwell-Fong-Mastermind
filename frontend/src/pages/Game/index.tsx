@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import GuessInput from './GuessInput';
-import GuessHistory from './GuessHistory';
-import { useErrors } from '../../hooks';
-import Errors from '../../components/Errors';
-import { SERVER_URL } from '../../utils/constants';
-import { useGame } from '../../context/GameContext';
-import { useParams } from 'react-router-dom';
-import Timer from './Timer';
-import Players from './Players';
-import { isLoggedIn } from '../../utils';
-import Hints from './Hints';
+import React, { useState, useEffect } from "react";
+import GuessInput from "./GuessInput";
+import GuessHistory from "./GuessHistory";
+import { useErrors } from "../../hooks";
+import Errors from "../../components/Errors";
+import { SERVER_URL } from "../../utils/constants";
+import { useGame } from "../../context/GameContext";
+import { useParams } from "react-router-dom";
+import Timer from "./Timer";
+import Players from "./Players";
+import { isLoggedIn } from "../../utils";
+import Hints from "./Hints";
 
 const Game: React.FC = () => {
   const params = useParams();
@@ -17,7 +17,7 @@ const Game: React.FC = () => {
   const errorsOptions = useErrors();
   const { errors, setErrors, useClearErrorsEffect } = errorsOptions;
   const { state, dispatch } = useGame();
-  const guessInputState = useState<string>('')
+  const guessInputState = useState<string>("")
   const game = state?.games[Number(params.id)];
   const guesses = state?.guesses[Number(params.id)];
   const endsAt = game?.endsAt;
@@ -30,7 +30,7 @@ const Game: React.FC = () => {
         const res = await fetch(`${SERVER_URL}/api/v1/games/${id}`)
         if (res.ok) {
           const data = await res.json()
-          dispatch({ type: 'ADD_GAME', payload: data })
+          dispatch({ type: "ADD_GAME", payload: data })
         }
 
       } catch (error: any) {
@@ -47,13 +47,13 @@ const Game: React.FC = () => {
   }
 
   return (
-    <div id='game' className='flex-evenly'>
+    <div id="game" className="flex-evenly">
       <div>
       
       <Timer endsAt={endsAt}/>
         {!isLoggedIn() && <Hints/>}
       </div>
-      <div className='align-center flex-col'>
+      <div className="align-center flex-col">
 
         <GuessInput errorsOptions={errorsOptions} guessInputState={guessInputState} />
         <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>

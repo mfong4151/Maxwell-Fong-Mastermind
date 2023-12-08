@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useGame } from '../../context/GameContext';
-import { SERVER_URL, jwtFetch } from '../../utils';
-import { ADD_GAMES } from '../../context/GameReducer';
-import { get } from 'http';
-import MyGameItem from './MyGameItem';
+import React, { useEffect, useState } from "react";
+import { useGame } from "../../context/GameContext";
+import { SERVER_URL, jwtFetch } from "../../utils";
+import { ADD_GAMES } from "../../context/GameReducer";
+import { get } from "http";
+import MyGameItem from "./MyGameItem";
 
 const MyGames: React.FC = () => {
     const {state, dispatch} = useGame();
@@ -32,7 +32,7 @@ const MyGames: React.FC = () => {
 
     return (
      
-    <ul id='game-items'>
+    <ul id="game-items">
 
         {Object.values(games).map((game: any, idx: number) => (
             <MyGameItem key={idx} game={game}/> 

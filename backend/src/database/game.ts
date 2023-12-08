@@ -11,7 +11,7 @@ export const createGame = (
                             secretCode: string[], 
                             numGuesses: number, 
                             playerIds: number[] = [],
-                            endDateTime: string = ''
+                            endDateTime: string = ""
                             )
 : Promise<Partial<Game>> => {
     const data: any = {
@@ -71,14 +71,14 @@ export const findGameById = (id: number ): Promise<Partial<Game> | null> => (
                     createdAt: true,
                 },
                 orderBy: {
-                    createdAt: 'asc'
+                    createdAt: "asc"
                 } 
             },
         }
     })
 )
 
-//Used for getting the config
+//Used for getting the config, which has among other things the secret code.
 export const findConfigById = (id: number): Promise<GameConfig | null> =>(
     prisma.game.findUnique({
         where: {
@@ -90,12 +90,7 @@ export const findConfigById = (id: number): Promise<GameConfig | null> =>(
             endsAt: true,
             guesses: true,
             numGuesses: true,
-            players:{
-                select:{
-                    id: true,
-                    playerId: true,
-                }
-            }
+         
         }
     })
 
@@ -144,28 +139,9 @@ export const findGuessesByGameId  = (gameId: number): Promise<Partial<GameGuess>
           createdAt: true,
         },
         orderBy:{
-            createdAt: 'asc'
+            createdAt: "asc"
         }
     })
 
 ) 
 
-export const createGamePlayer = ( gameId: number, playerId: number): Promise<GamePlayer> => (
-    prisma.gamePlayer.create({
-        data: {
-
-            game:{
-                connect:{
-                    id: gameId
-                }
-            },
-            player:{
-                connect:{
-                    id: playerId
-                }
-            }
-            
-        }
-    })
-)
-    

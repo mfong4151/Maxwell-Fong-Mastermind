@@ -1,9 +1,9 @@
-import React, { useState, FormEvent } from 'react';
-import { jwtFetch, SERVER_URL} from '../utils';
-import { useGame } from '../context/GameContext';
-import ErrorsModal from './ErrorsModal';
-import { useNavigate } from 'react-router-dom';
-import EndsAtSelect from './EndsAtSelect';
+import React, { useState, FormEvent } from "react";
+import { jwtFetch, SERVER_URL} from "../utils";
+import { useGame } from "../context/GameContext";
+import ErrorsModal from "./ErrorsModal";
+import { useNavigate } from "react-router-dom";
+import EndsAtSelect from "./EndsAtSelect";
 
 const NewGameForm: React.FC = () => {
   const [num, setNum] = useState<number>(4);
@@ -26,23 +26,23 @@ const NewGameForm: React.FC = () => {
     }
 
     try {
-      const res = await jwtFetch(`${SERVER_URL}/api/v1/games`, body, 'POST')
+      const res = await jwtFetch(`${SERVER_URL}/api/v1/games`, body, "POST")
       const data = await res.json();
       if (res.ok) {
-        dispatch({ type: 'ADD_GAME', payload: data })
+        dispatch({ type: "ADD_GAME", payload: data })
         navigate(`/game/${data.id}`)
       } else {
         setErrors(data.errors)
       }
     } catch (error: any) {
-      setErrors(['Issues connecting to the server'])
+      setErrors(["Issues connecting to the server"])
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className='flex-col'>
+        <div className="flex-col">
           <div>
             <label htmlFor="num">Code Length:</label>
             <input

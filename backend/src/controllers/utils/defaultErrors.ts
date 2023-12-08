@@ -14,7 +14,7 @@ export const handleControllerErrors = (res: Response, error: controllerError, re
         return _delegatePrismaQueryError(res, error, resourceName)
            
     } else if (error instanceof PrismaClientInitializationError){
-        return res.status(500).json({errors: ['Server failed to connect to database.']})
+        return res.status(500).json({errors: ["Server failed to connect to database."]})
 
     } else{
         return res.status(500).json({errors: [genererateErrorMessage(resourceName)]})

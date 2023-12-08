@@ -1,10 +1,10 @@
 // gameReducer.ts
-import type{ GameState, GameAction } from './types';
-import type { Game, Guess } from '../types';
-export const ADD_GAME: string = 'ADD_GAME';
-export const ADD_GAMES: string = 'ADD_GAMES';
-export const ADD_GUESS: string = 'ADD_GUESS';
-export const ADD_SESSION_USER: string = 'ADD_SESSION_USER';
+import type{ GameState, GameAction } from "./types";
+import type { Game, Guess } from "../types";
+export const ADD_GAME: string = "ADD_GAME";
+export const ADD_GAMES: string = "ADD_GAMES";
+export const ADD_GUESS: string = "ADD_GUESS";
+export const ADD_SESSION_USER: string = "ADD_SESSION_USER";
 
 const initialState: GameState = {
   sessionUser: {},

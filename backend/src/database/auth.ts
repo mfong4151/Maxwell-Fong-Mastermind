@@ -1,5 +1,5 @@
-import prisma from './db';
-import {User, Prisma} from '@prisma/client';
+import prisma from "./db";
+import {User, Prisma} from "@prisma/client";
 
 export const findUserByUsername = (username: string): Promise<User | null> => (
     prisma.user.findUnique({

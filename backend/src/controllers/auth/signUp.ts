@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { handleControllerErrors } from "../utils";
 import { createUser } from "../../database/auth";
-import {User} from '@prisma/client';
-import {hash} from 'bcrypt';
+import {User} from "@prisma/client";
+import {hash} from "bcrypt";
 import { controllerError } from "../../types";
 
 export const signUp = async (req: Request, res: Response): Promise<Response> => {
@@ -19,7 +19,7 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
                 .json({user});
 
     } catch (error: controllerError) {
-        return handleControllerErrors(res, error, 'user')
+        return handleControllerErrors(res, error, "user")
 
     }
 }

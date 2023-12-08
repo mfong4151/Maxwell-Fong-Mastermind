@@ -6,7 +6,7 @@ import { authValidations } from "../validations/auth";
 
 const authRouter = Router();
 authRouter
-    .post('/signup', authValidations, validate, signUp)
-    .post('/login', authValidations, validate, login)
+    .post("/signup", authValidations, validate, signUp)
+    .post("/login", authValidations, validate, login)
 
 export default authRouter;

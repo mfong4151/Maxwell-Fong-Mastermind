@@ -43,7 +43,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
         
 
         if (secretCode.length){
-            const endDateTime: string = endsAt ? _convertToEndDate(endsAt) : ''   //TODO: Move this higher in scope?
+            const endDateTime: string = endsAt ? _convertToEndDate(endsAt) : ""   //TODO: Move this higher in scope?
             const game: Awaited<Partial<Game>> = await createGame(
                                                         secretCode, 
                                                         numGuesses, 
@@ -59,7 +59,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
         }else{
             return res
                     .status(500)
-                    .json({errors: ['The game could not be created due to a third party API issue.']})
+                    .json({errors: ["The game could not be created due to a third party API issue."]})
         }           
 
     } catch (error: controllerError) {
@@ -67,7 +67,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
         if(error instanceof PrismaClientKnownRequestError 
             && error.code === NON_EXISTANT_RELATION){
             return res.status(404).json({
-                errors: ['One of the users added does not exist, please re evaluate your game creation request']
+                errors: ["One of the users added does not exist, please re evaluate your game creation request"]
             })
 
         } else {

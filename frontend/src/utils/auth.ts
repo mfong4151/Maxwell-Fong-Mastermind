@@ -6,9 +6,9 @@ import { useGame } from "../context/GameContext";
 export const login = async (username: string, password: string, setErrors: StateSetter<string[]>) => {
     try {
         const res = await fetch(`${SERVER_URL}/api/v1/auth/login`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             },
             body: JSON.stringify({ username, password })
         });
@@ -23,40 +23,40 @@ export const login = async (username: string, password: string, setErrors: State
         }
 
     } catch (error: any) {
-        setErrors(['Unable to connect to server sucessfully.'])
+        setErrors(["Unable to connect to server sucessfully."])
         return null
     }
 }
 
 export const storeToken = (token: string) => {
-    localStorage.setItem('jwt', token);
+    localStorage.setItem("jwt", token);
 }
 
 export const getStoredToken = () => {
-    return localStorage.getItem('jwt');
+    return localStorage.getItem("jwt");
 
 } 
 
 export const authHeader = () => {
 	const token = getStoredToken();
-	return token ? { 'Authorization': `Bearer ${token}` } : {};
+	return token ? { "Authorization": `Bearer ${token}` } : {};
 };
 
 export const logout = () => {
-	localStorage.removeItem('jwt');
+	localStorage.removeItem("jwt");
 
 };
 
 export const isLoggedIn = () => {
-	return !!localStorage.getItem('jwt');
+	return !!localStorage.getItem("jwt");
 };
 
 
-export const jwtFetch = (url: string, body: any = {}, method: string = 'GET', ): Promise<Response> => {
+export const jwtFetch = (url: string, body: any = {}, method: string = "GET", ): Promise<Response> => {
 
     const headers = {
         ...authHeader(),        
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     } as HeadersInit
 
     const req: {method: string, headers: HeadersInit, body? : any} = {
@@ -64,7 +64,7 @@ export const jwtFetch = (url: string, body: any = {}, method: string = 'GET', ):
         method,
     }
 
-    if (method !== 'GET'){
+    if (method !== "GET"){
         req.body = JSON.stringify(body);
     }
     

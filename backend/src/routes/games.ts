@@ -13,11 +13,11 @@ import { getHint } from "../controllers/games/getHint";
 
 const gameRouter = Router();
 gameRouter
-    .get('/:gameId/guesses', validate, getGameGuesses)
-    .get('/:gameId/hints/', gameHintGetValidations, validate, getHint)
-    .get('/:id', gameGetValidations, validate, getGame)
-    .post('/', gamePostValidations, optionallizeJWT ,validate, postGame )
-    .post('/:gameId/guesses', gameGuessPostValidations, optionallizeJWT, validate, gameGuessPostSanitzations, postGameGuess  )
-    .post('/:gameId/players', gamePlayerPostValidations, authenticateJWT, validate, postGamePlayer)
+    .get("/:gameId/guesses", validate, getGameGuesses)
+    .get("/:gameId/hints/", gameHintGetValidations, validate, getHint)
+    .get("/:id", gameGetValidations, validate, getGame)
+    .post("/", gamePostValidations, optionallizeJWT ,validate, postGame )
+    .post("/:gameId/guesses", gameGuessPostValidations, optionallizeJWT, validate, gameGuessPostSanitzations, postGameGuess  )
+    .post("/:gameId/players", gamePlayerPostValidations, authenticateJWT, validate, postGamePlayer)
 
 export default gameRouter;

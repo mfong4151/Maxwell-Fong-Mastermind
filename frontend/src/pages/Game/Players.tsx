@@ -1,5 +1,5 @@
-import React from 'react';
-import PlayerItem from './PlayerItem';
+import React from "react";
+import PlayerItem from "./PlayerItem";
 
 interface Props {
     players?: any
@@ -7,7 +7,7 @@ interface Props {
 const Players: React.FC<Props> = ({ players }) => {
 
     return (
-        <div id='' className=''>
+        <div id="" className="">
             {players && players.length > 1
                 ?
                 <>

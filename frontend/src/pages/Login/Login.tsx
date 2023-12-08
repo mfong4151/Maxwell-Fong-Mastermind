@@ -1,16 +1,16 @@
-import React, { useState, FormEvent, useEffect } from 'react';
-import { useErrors } from '../../hooks';
-import Errors from '../../components/Errors';
-import { getStoredToken, isLoggedIn, jwtFetch, login, storeToken } from '../../utils/auth';
-import { useNavigate } from 'react-router-dom';
-import { SERVER_URL } from '../../utils';
+import React, { useState, FormEvent, useEffect } from "react";
+import { useErrors } from "../../hooks";
+import Errors from "../../components/Errors";
+import { getStoredToken, isLoggedIn, jwtFetch, login, storeToken } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { SERVER_URL } from "../../utils";
 
 
 
 const Login: React.FC = () => {
-	const [username, setUsername] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [toggleForm, setToggleForm] = useState<string>('login')
+	const [username, setUsername] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [toggleForm, setToggleForm] = useState<string>("login")
 	const { errors, setErrors, useClearErrorsEffect } = useErrors();
 	const navigate = useNavigate()
 
@@ -18,9 +18,9 @@ const Login: React.FC = () => {
 		e.preventDefault();
 
 		try {
-			if (toggleForm === 'signup'){
+			if (toggleForm === "signup"){
 				const body = {username, password}
-				const res = await jwtFetch(`${SERVER_URL}/api/v1/auth/signup`, body, 'POST')
+				const res = await jwtFetch(`${SERVER_URL}/api/v1/auth/signup`, body, "POST")
 				const data = await res.json();
 				
 				if (!res.ok){
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 				return
 			} else {
 				storeToken(token)
-				navigate('/games')
+				navigate("/games")
 			}
 
 		} catch (error) {
@@ -43,26 +43,26 @@ const Login: React.FC = () => {
 		}
 	};
 	const handleSwapForm = (e: any): void => {
-		if (toggleForm === 'login') {
-			setToggleForm('signup')
+		if (toggleForm === "login") {
+			setToggleForm("signup")
 
 		} else {
-			setToggleForm('login')
+			setToggleForm("login")
 		}
 
 	}
 
 	useEffect(() => {
 		if (isLoggedIn()) {
-			navigate('/games')
+			navigate("/games")
 		}
 	}, [])
 
 	useClearErrorsEffect(username, password, toggleForm)
 
 	return (
-		<div className='flex-center flex-col'>
-			<h1>{toggleForm === 'login' ? 'Login' : 'Sign Up'}</h1>
+		<div className="flex-center flex-col">
+			<h1>{toggleForm === "login" ? "Login" : "Sign Up"}</h1>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label htmlFor="username">Username: </label>
@@ -82,10 +82,10 @@ const Login: React.FC = () => {
 						onChange={e => setPassword(e.target.value)}
 					/>
 				</div>
-				<button type="submit">{toggleForm === 'login' ? 'Log in': 'Sign up'}</button>
+				<button type="submit">{toggleForm === "login" ? "Log in": "Sign up"}</button>
 			</form>
 			<button onClick={handleSwapForm}>
-				Swap to {toggleForm === 'login' ? 'Sign Up' : 'Log in'}
+				Swap to {toggleForm === "login" ? "Sign Up" : "Log in"}
 			</button>
 			<Errors errors={errors} />
 		</div>

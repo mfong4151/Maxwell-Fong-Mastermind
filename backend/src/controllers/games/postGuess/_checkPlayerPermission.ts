@@ -6,7 +6,7 @@ import { CheckablePlayers } from "../../../types"
 export const _isPlayerPermitted = (playerIds: Set<number>, currPlayerId: number): boolean =>
 (
         !!playerIds.size && playerIds.has(currPlayerId)
-)
+);
     
         
         

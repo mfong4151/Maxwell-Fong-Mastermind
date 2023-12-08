@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { SERVER_URL, isLoggedIn, jwtFetch, logout } from '../../utils';
-import { useNavigate } from 'react-router-dom';
-import { useErrors } from '../../hooks';
-import { useGame } from '../../context/GameContext';
-import { ADD_SESSION_USER } from '../../context/GameReducer';
-import WinLoss from './WinLoss';
+import React, { useEffect } from "react";
+import { SERVER_URL, isLoggedIn, jwtFetch, logout } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import { useErrors } from "../../hooks";
+import { useGame } from "../../context/GameContext";
+import { ADD_SESSION_USER } from "../../context/GameReducer";
+import WinLoss from "./WinLoss";
 interface Props{
 
 }
@@ -17,16 +17,16 @@ const Header:React.FC<Props> = () => {
   const handleOnClick = (e:any):void => {
     const id  = e.target.id;
     
-    if (id === 'login'){
-      navigate('/login')      
+    if (id === "login"){
+      navigate("/login")      
     }else{
       logout()
-      navigate('/login')
+      navigate("/login")
     }
   }
   const handleGoHome = (e: any): void =>{
     if(isLoggedIn()){
-      navigate('/games')
+      navigate("/games")
     }    
 
   }
@@ -51,8 +51,8 @@ const Header:React.FC<Props> = () => {
   }, [])
 
   return (
-    <header className='padding-default flex-between'>
-      <span className='cursor-events' onClick={handleGoHome}>
+    <header className="padding-default flex-between">
+      <span className="cursor-events" onClick={handleGoHome}>
         Mastermind
       </span>
 
@@ -62,13 +62,13 @@ const Header:React.FC<Props> = () => {
           ?
             <>
             <span>Hello {state?.sessionUser?.username}</span>
-            <button id='logout' onClick={handleOnClick}>
+            <button id="logout" onClick={handleOnClick}>
               Log out
             </button>
             <WinLoss wins={state?.sessionUser?.gamesWon} total={state?.sessionUser?.totalGames} /> 
             </>
           :
-            <button id='login' onClick={handleOnClick}>
+            <button id="login" onClick={handleOnClick}>
                Log in 
             </button>
         }

@@ -5,10 +5,10 @@ const MIN: number = 0;
 const MAX: number=  7;
 const COL: number = 1;
 const BASE: number = 10;
-const FORMAT : string = 'plain'
-const RND: string = 'new' 
+const FORMAT : string = "plain"
+const RND: string = "new" 
 
-//Logic for grabbing a random code, returns an empty array if there is an error (you can't guess what doesn't exist!)
+//Logic for grabbing a random code, returns an empty array if there is an error (you can"t guess what doesn"t exist!)
 export const _generateRandomCode = async (codeOptions: GameOptions): Promise<string[]> =>{
     const randomCodeUrl: string =  _generateRandomOrgUrl(codeOptions);
 
@@ -34,7 +34,7 @@ const _generateRandomOrgUrl = ({num} :GameOptions ): string => (
 const _transposeRandomText= (randomNumberStr: string): string[] => (
     randomNumberStr
         .split("\n")
-        .filter((num: string) => num !== '')
+        .filter((num: string) => num !== "")
 )  
 
 

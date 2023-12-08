@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { generateNotFoundMessage, handleCachePlayers, handleControllerErrors, lruGames } from "../utils";
-import { Game, User } from "@prisma/client";
+import { Game } from "@prisma/client";
 import { findGameById, findConfigById } from "../../database/game";
-import { GameConfig } from "../../types";
+import { GameConfig, controllerError } from "../../types";
 
 //When a GET request is made to get the game, we cache the players and the games
 //We do this because we assume that attempts to play the game are made later on after a game is accessed.
@@ -18,19 +18,18 @@ export const getGame = async (req: Request, res: Response): Promise<Response> =>
         //We also cache the game player players
         if (gameConfig){
                 lruGames.set(gameConfig.id!, gameConfig)
-                handleCachePlayers(gameConfig)
-            }
+        }
 
         if (game){
             return res.status(200).json(game)
             
         } else{
-            return res.status(404).json({errors:[generateNotFoundMessage('game', id)]})
+            return res.status(404).json({errors:[generateNotFoundMessage("game", id)]})
 
         }
             
-    } catch (error: unknown) {
-        return handleControllerErrors(res, error, 'game')
+    } catch (error: controllerError) {
+        return handleControllerErrors(res, error, "game")
 
     }
 }

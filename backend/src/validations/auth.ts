@@ -15,7 +15,7 @@ const generateAuthFieldsValidation = (property: string): ValidationChain=>(
 )
 
 export const authValidations: ValidationChain[] = [
-    generateAuthFieldsValidation('username'),
-    generateAuthFieldsValidation('password')    
+    generateAuthFieldsValidation("username"),
+    generateAuthFieldsValidation("password")    
     
 ];

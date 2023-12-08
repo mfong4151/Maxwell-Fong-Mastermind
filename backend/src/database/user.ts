@@ -22,7 +22,7 @@ export const _findGamesByUserIdPrisma = (userId: number): Promise<Partial<Game>[
             createdAt: true,
         },
         orderBy: {
-            createdAt: 'desc'
+            createdAt: "desc"
         }
     })
 )

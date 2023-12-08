@@ -15,7 +15,7 @@ export const getUsersGames = async (req: Request, res: Response): Promise<Respon
         } else{
             return res
                     .status(404)
-                    .json({errors: ['This user does not have any games! Go start one to fix this issue!']})
+                    .json({errors: ["You do not have any games! Go start one to fix this issue!"]})
 
         }
 

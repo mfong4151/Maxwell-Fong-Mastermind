@@ -1,5 +1,5 @@
-import React, { SetStateAction } from 'react';
-import './errors.css';
+import React, { SetStateAction } from "react";
+import "./errors.css";
 
 interface Props {
     errors: string[];
@@ -10,7 +10,7 @@ const Errors: React.FC<Props> = ({ errors }) => {
         <>
             {
                 errors && !!errors.length &&
-                <ul id='errors'>
+                <ul id="errors">
                     {errors.map((error: string, idx: number) => <li> {error} </li>)}
                 </ul>
             }

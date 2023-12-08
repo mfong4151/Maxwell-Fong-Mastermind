@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { GameConfig, controllerError } from "../../types";
-import { findConfigById } from "../../database/game";
 import { generateNotFoundMessage, handleControllerErrors } from "../utils";
+import { retrieveGameConfig } from "./utils";
+import type { GameConfig, controllerError } from "../../types";
 
 export const getHint = async (req: Request, res: Response): Promise<Response> => {
-    const gameId = Number(req.params.gameId as string);
-    const userId = req.userId;
+    const gameId: number = Number(req.params.gameId as string);
+    const userId: number | undefined = req.userId;
 
     //Shy away users who are logged in. Hints are only allowed for casual play.
     if (userId){
@@ -13,7 +13,7 @@ export const getHint = async (req: Request, res: Response): Promise<Response> =>
     }
 
     try {
-        const gameConfig: Awaited<GameConfig | null> = await findConfigById(gameId) 
+        const gameConfig: Awaited<GameConfig | null> = await retrieveGameConfig(gameId);
         
         if (gameConfig) {
             const {numEvens, numOdds} = _countCodeEntries(gameConfig.secretCode)
@@ -23,13 +23,12 @@ export const getHint = async (req: Request, res: Response): Promise<Response> =>
                     .json({hint: `This code has ${numEvens} even numbers, and ${numOdds} odds.`})
             
         } else {
-           return res.status(404).json(generateNotFoundMessage('game', gameId)) 
+           return res.status(404).json(generateNotFoundMessage("game", gameId)) 
         }
 
 
     } catch (error: controllerError) {
-
-        return handleControllerErrors(res, error, 'game')
+        return handleControllerErrors(res, error, "game")
 
     }
 }

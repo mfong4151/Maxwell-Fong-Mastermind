@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 
 const MultiplayerInvite:React.FC = () => {
 
   return (
-    <div id='' className=''>
+    <div id="" className="">
         <h3>Add a Player to Your Game</h3>
         <form action="">
             <div>

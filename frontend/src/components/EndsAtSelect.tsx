@@ -1,5 +1,5 @@
-import React from 'react';
-import { StateSetter } from '../types';
+import React from "react";
+import { StateSetter } from "../types";
 
 interface Props{
     endsAt: number | null
@@ -12,7 +12,7 @@ const EndsAtSelect:React.FC<Props> = ({endsAt, setEndsAt}) => {
         const MILIS = 1000
         const SECS = 60
         
-        if (e.target.value === 'null'){
+        if (e.target.value === "null"){
             setEndsAt(null)
             return
         }

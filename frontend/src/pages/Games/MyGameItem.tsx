@@ -1,7 +1,7 @@
-import React from 'react';
-import { Game } from '../../types';
-import './games.css';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Game } from "../../types";
+import "./games.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props{
     game: Game
@@ -23,15 +23,15 @@ const MyGameItem:React.FC<Props> = ({game}) => {
     }
 
     return (
-        <li className='flex-between align-center game-item'>
-            <div className='flex-col game-item-about '>
-                <div className='flex-between'>
+        <li className="flex-between align-center game-item">
+            <div className="flex-col game-item-about ">
+                <div className="flex-between">
                 <p>Game no: {id} </p>
                 <p>Rounds: {roundNo}/{numGuesses}</p>
                 <p>Players: {numPlayers} </p>
 
                 </div>
-                <div className='flex-center'>
+                <div className="flex-center">
                     { endDateTime && 
                     `Ends on: ${endDateTime?.getFullYear()}/${endDateTime?.getMonth() + 1}/${endDateTime.getDate()},
                     ${endDateTime?.getHours()}:${endDateTime?.getMinutes()}:${endDateTime?.getSeconds()}

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 interface Props {
     endsAt: string | null;
 }
@@ -38,7 +38,7 @@ const Timer: React.FC<Props> = ({ endsAt }) => {
         }, 1000);
 
         if(Object.values(timeLeft).every((val: number) => val === 0)){
-            navigate('/games')            
+            navigate("/games")            
         }
 
 
@@ -60,9 +60,9 @@ const Timer: React.FC<Props> = ({ endsAt }) => {
                     :
                     <>
                         <p>
-                            {timeLeft.hours.toString().padStart(2, '0')}:
-                            {timeLeft.minutes.toString().padStart(2, '0')}:
-                            {timeLeft.seconds.toString().padStart(2, '0')}
+                            {timeLeft.hours.toString().padStart(2, "0")}:
+                            {timeLeft.minutes.toString().padStart(2, "0")}:
+                            {timeLeft.seconds.toString().padStart(2, "0")}
                         </p>
                     </>
             }

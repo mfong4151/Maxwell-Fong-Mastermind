@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { SERVER_URL } from '../../utils';
-import { useParams } from 'react-router-dom';
-import Errors from '../../components/Errors';
-import { useErrors } from '../../hooks';
+import React, { useState } from "react";
+import { SERVER_URL } from "../../utils";
+import { useParams } from "react-router-dom";
+import Errors from "../../components/Errors";
+import { useErrors } from "../../hooks";
 
 
 const Hints:React.FC = () => {
     const {id} = useParams()
     const {errors, setErrors, useClearErrorsEffect} = useErrors();
-    const [hints, setHints] = useState<string>('')
+    const [hints, setHints] = useState<string>("")
 
     useClearErrorsEffect(hints)
 

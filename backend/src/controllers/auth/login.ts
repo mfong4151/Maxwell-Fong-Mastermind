@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { findUserByUsername } from "../../database/auth";
 import { generateToken } from "../../jwtConfig";
-import { compare } from 'bcrypt';
-import type { User } from '@prisma/client';
+import { compare } from "bcrypt";
+import type { User } from "@prisma/client";
 import { handleControllerErrors } from "../utils";
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -17,11 +17,11 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             return res.status(200).json({ token });
 
         } else {
-            return res.status(401).json({ errors: ['Invalid username or password'] });
+            return res.status(401).json({ errors: ["Invalid username or password"] });
 
         }
     } catch (error: unknown) {
-        return handleControllerErrors(res, error, 'user')
+        return handleControllerErrors(res, error, "user")
 
     }
 
