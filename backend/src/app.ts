@@ -8,7 +8,7 @@ import { config } from "dotenv";
 const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT_NO || 5000;
-config()
+config();
 
 app.use(express.json(), cors());
 app.use("/api", apiRouter);
