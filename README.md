@@ -1,7 +1,7 @@
 
 # Maxwell Fong Mastermind
 
-This project is my submission for the Mastermind take home challenge for LinkedIn REACH's Backend Apprenticeship candidacy. Assume that mastermind was an n-player, real-time game, what would that look like? This project takes that question as a point of departure and uses it to animate the main features.
+This project is my submission for the Mastermind take home challenge for LinkedIn REACH's Backend Apprenticeship candidacy. Assume that mastermind was an n-player, real-time game. What would that look like? This project takes that question as a point of departure and uses it to animate the main features.
 
 My mastermind submission includes both a backend and complementing frontend for demonstration. The frontend was made particularly to scale backend features, and for presentation purposes in general. As this is a Backend Apprenticeship, the focus here is on the Express backend and how I crafted the main features. Below I’ve detailed some of the main features, and challenges I encountered during the development process.
 
@@ -44,7 +44,7 @@ This will create the database, and initialize the Prisma Client, which will gene
 ```bash
 npx prisma db generate
 ```
-is implicitly run by npx prisma db push, but in the case that anything fails refer to this command to generate the Client.
+is implicitly run by npx prisma db push, but in the case that anything fails, refer to db generate to generate the Client.
 
 If the database fails to initialize, please make sure that the you have sufficient privledges to make/access the database. npx prisma db generate will fail quietly if the database is not initialized correctly.
 
@@ -281,22 +281,28 @@ Base URL
 ### V1 Endpoints
 
 User Endpoints
+```
     GET /users/games: Retrieve current games for a user.
     GET /users/: Get user details.
     GET /users/profiles: Get user profile information.
+```
 
 Game Endpoints
+```
     GET /games/{gameId}/guesses: Retrieve guesses for a specific game.
     GET /games/{id}: Get details of a specific game.
     POST /games/: Create a new game.
     POST /games/{gameId}/guesses: Submit a guess in a game.
     POST /games/{gameId}/players: Add players to a game.
+```
 
 Authentication Endpoints
+```
     POST /auth/signup: Register a new user.
     POST /auth/login: Login for existing users.
+```
 
-### Endpoint Parameters
+### Select Endpoint Parameters
 
 While the majority of the routes are fairly generic in terms of their parameters, the following core routes are:
 
