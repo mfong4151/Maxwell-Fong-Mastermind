@@ -312,10 +312,10 @@ This endpoint is used to create a new game instance.
 
 Request Parameters:
 
-    num: (Required) Integer. Specifies the number of elements in the secret code.
-    numGuesses: (Required) Integer. Defines the maximum number of guesses allowed in the game.
-    playerIds: (Optional) Array of Integers. Contains the IDs of players participating in the game. If omitted, then the game is only played by a single player. This is optional as a means to give users the option of initializing a multiplayer game, although in the provided UI this feature is not implemented.
-    endsAt: (Optional) String. A timestamp indicating when the game ends. If not provided, the game has no time limit.
+- num: (Required) Integer. Specifies the number of elements in the secret code.
+- numGuesses: (Required) Integer. Defines the maximum number of guesses allowed in the game.
+- playerIds: (Optional) Array of Integers. Contains the IDs of players participating in the game. If omitted, then the game is only played by a single player. This is optional as a means to give users the option of initializing a multiplayer game, although in the provided UI this feature is not implemented.
+- endsAt: (Optional) String. A timestamp indicating when the game ends. If not provided, the game has no time limit.
 
 Example Request:
 
@@ -347,8 +347,9 @@ URL Parameters:
 Request Parameters:
 
 Body Parameters:
-    guesses: (Required) Array of Strings. The player's guess, consisting of a series of numbers or characters,depending on the game configuration.
-    playerId: (Optional) Integer. The ID of the player making the guess. Required if the game is not a guestgame.
+
+- guesses: (Required) Array of Strings. The player's guess, consisting of a series of numbers or characters,depending on the game configuration.
+- playerId: (Optional) Integer. The ID of the player making the guess. Required if the game is not a guestgame.
 
 Example Request:
 
