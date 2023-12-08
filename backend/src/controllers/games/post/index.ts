@@ -4,7 +4,7 @@ import { createGame } from "../../../database/game";
 import { controllerError } from "../../../types";
 import { NON_EXISTANT_RELATION, generateLocation, handleControllerErrors, lruGames } from "../../utils";
 import { _generateRandomCode} from "./_generateRandomCode";
-import {  GameOptions } from "../../../types/interface";
+import {  GameOptions } from "../../../types/request";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { _convertToEndDate } from "./_convertToEndDate";
 

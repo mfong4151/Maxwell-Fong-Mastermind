@@ -1,7 +1,18 @@
 import { Request, Response } from "express";
 import { Router } from "express";
-import { findGuessesByGameId } from "../database/game";
 import { lruGames, lruPlayers } from "../controllers/utils";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient()
+
+
+export const testQuery = async() => (
+    prisma.$queryRaw`
+       SELECT * FROM games
+       WHERE  ("endsAt" > CURRENT_DATE OR "endsAt" IS NULL)
+    ;`    
+)
+
 
 const testRouter = Router()
 //TODO: add P010 error in handler
@@ -15,7 +26,6 @@ const testRouter = Router()
 const test = async (req: Request, res: Response): Promise<Response> => {
     
     try {
-        const test = await findGuessesByGameId(27)
         console.log(lruGames.get(40))
         console.log(lruPlayers.get(40))
         
@@ -32,3 +42,4 @@ testRouter
         .get("/", test)
 
 export default testRouter;
+

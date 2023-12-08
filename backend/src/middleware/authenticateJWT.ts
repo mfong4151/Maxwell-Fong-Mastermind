@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyToken } from "../jwtConfig";
+import { verifyToken } from "../utils/jwtConfig";
 
 interface Token{
     userId: number, 
@@ -17,7 +17,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
                 .json({errors:["You are not logged in! Please log in before proceeding"]});
     } 
 
-    const user = verifyToken(token) as Token 
+    const user = verifyToken(token) as Token;
     if (!user){
         return res
                 .status(403)
@@ -42,14 +42,14 @@ export const optionallizeJWT = (req: Request, res: Response, next: NextFunction)
         if (!user){
             return res
             .status(401)
-            .json({errors: ["Please refresh your login session to proceed."]})
+            .json({errors: ["Please refresh your login session to proceed."]});
 
         }
 
         req.userId = user.userId;
 
     } else{
-        req.userId = 0; //Because no id NEVER === 0, we can use this to indicate no login
+        req.userId = 0; //Because an id NEVER === 0, we can use this to indicate no login
         
      }
 

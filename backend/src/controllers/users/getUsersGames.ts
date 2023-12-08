@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleControllerErrors } from "../utils";
 import { Game } from "@prisma/client";
-import { findGamesByUserId } from "../../database/user";
+import { findGamesByUserId } from "../../database/game";
 
 export const getUsersGames = async (req: Request, res: Response): Promise<Response> => {
     const userId: number = req.userId!;

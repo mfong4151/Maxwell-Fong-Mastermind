@@ -12,5 +12,5 @@ export const logger = (req: Request, res: Response, next: NextFunction): void =>
     if (Object.values(query).length)
     console.log("QUERY", query)
 
-    return next()
-}
+    return next();
+};

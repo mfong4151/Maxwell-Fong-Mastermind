@@ -67,7 +67,7 @@ const guessesValidation = body("guesses")
                             .withMessage(
                                  `You have entered a data type that we cannot support, we currently only support the\
                                   following types: ${supportedTypes.join(", ")}`
-                            )
+                            );
 
 export const gameGuessPostValidations: ValidationChain[] = [
     paramGameIdValidation, 
@@ -77,12 +77,11 @@ export const gameGuessPostValidations: ValidationChain[] = [
 ];
 
 //GamePlayer POST validations
-const gameIdNumeric = generateIdValidation(param("gameId"), "game id")
-const playerIdNumeric = generateIdValidation(body("playerId"), "player id")
+const gameIdNumeric = generateIdValidation(param("gameId"), "game id");
+const playerIdNumeric = generateIdValidation(body("playerId"), "player id");
 
 export const gamePlayerPostValidations: ValidationChain[] =[
     gameIdNumeric,
     playerIdNumeric,
 
-]
-
+];

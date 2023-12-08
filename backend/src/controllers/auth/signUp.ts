@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleControllerErrors } from "../utils";
-import { createUser } from "../../database/auth";
+import { createUser } from "../../database/user";
 import {User} from "@prisma/client";
 import {hash} from "bcrypt";
 import { controllerError } from "../../types";

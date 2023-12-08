@@ -1,4 +1,4 @@
-import {  GameOptions} from "../../../types/interface"
+import {  GameOptions} from "../../../types/request"
 
 //Default settings as requested in instructions
 const MIN: number = 0;

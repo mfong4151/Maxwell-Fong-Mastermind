@@ -1,18 +1,12 @@
 import { Request, Response } from "express";
-import { generateLocation, generateNotFoundMessage, handleCachePlayers, handleControllerErrors, lruGames, lruPlayers } from "../../utils";
-import { createGameGuess, findConfigById, findGuessesByGameId } from "../../../database/game";
+import { generateLocation, generateNotFoundMessage, handleControllerErrors} from "../../utils";
+import { createGameGuess, findGuessesByGameId } from "../../../database/gameGuesses";
 import { GameGuess } from "@prisma/client";
 import { GameConfig, controllerError, gameGuessNoFK} from "../../../types";
 import { _checkGamePlayable } from "./_checkGamePlayable";
 import { _scoreRound } from "./_scoreRound";
 import {  _isPlayerPermitted } from "./_checkPlayerPermission";
 import { retrieveGameConfig, retrievePlayers } from "../utils";
-
-/*
-TODO: 
-3. Double check logic for optional playerId (NOT IMPLEMENTED)
-4. Check logic for ends at
-*/
 
 export const postGameGuess = async (req: Request, res: Response): Promise<Response> => {
     const gameId: number =  Number(req.params.gameId);
@@ -26,28 +20,25 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
         const playerIds: Awaited<Set<number> | null> = await retrievePlayers(gameId);
     
         if (!gameConfig || (playerId && !playerIds)){
-            return res.status(404).json(generateNotFoundMessage("game", gameId))
-
+            return res.status(404).json(generateNotFoundMessage("game", gameId));
         }
     
-        //Check if the player is permitted to play. 
-        //If gameConfig.players is undefined, then we assume this is a loginless game
+        //2. Check if the player is permitted to play. 
+        //If playerId is undefined, then we assume this is a loginless game
         if(playerId && !( !!playerIds!.size && playerIds!.has(playerId))){
             return res
                     .status(401)
-                    .json({errors: ["You are not allowed to play this game!"]})
+                    .json({errors: ["You are not allowed to play this game!"]});
         }
 
-        const pastGuesses = await findGuessesByGameId(gameId)
+        const pastGuesses: any = await findGuessesByGameId(gameId)
         const errors: string[] = _checkGamePlayable(gameConfig, pastGuesses, guesses);
         
         if (errors.length){
-            return res.status(422).json({errors})
+            return res.status(422).json({errors});
         }
 
-
-
-        //Check against previous game state, recieve a Partial<GameGuess> object which tracks score.
+        //3. Check against previous game state, recieve a Partial<GameGuess> object which tracks score.
         //Add on the user"s id and game"s id to the object.
         const data: gameGuessNoFK = _scoreRound(gameConfig.secretCode!, guesses);
 
@@ -56,12 +47,12 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
         const location: string = generateLocation(req, gameGuess.id);
 
         return res
-                .status(200)
+                .status(201)
                 .location(location)
-                .json(gameGuess)
+                .json(gameGuess);
 
     } catch (error: controllerError) {
-        return handleControllerErrors(res, error, "game") 
+        return handleControllerErrors(res, error, "game");
         
     }
 }

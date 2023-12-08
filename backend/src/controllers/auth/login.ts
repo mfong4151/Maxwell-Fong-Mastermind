@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { findUserByUsername } from "../../database/auth";
-import { generateToken } from "../../jwtConfig";
+import { findUserByUsername } from "../../database/user";
+import { generateToken } from "../../utils/jwtConfig";
 import { compare } from "bcrypt";
 import type { User } from "@prisma/client";
 import { handleControllerErrors } from "../utils";
@@ -10,7 +10,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const user: Awaited<User | null> = await findUserByUsername(username)
+        const user: Awaited<User | null> = await findUserByUsername(username);
 
         if (user && await compare(password, user.hashedPassword)) {
             const token = generateToken(user.id);
@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
         }
     } catch (error: unknown) {
-        return handleControllerErrors(res, error, "user")
+        return handleControllerErrors(res, error, "user");
 
     }
 

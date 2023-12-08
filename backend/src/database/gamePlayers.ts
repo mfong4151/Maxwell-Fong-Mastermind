@@ -1,5 +1,5 @@
 import { GamePlayer } from "@prisma/client";
-import prisma from "./db"
+import prisma from "./db";
 
 export const findPlayersByGameId = (gameId: number): Promise<GamePlayer[]> =>(
     prisma.gamePlayer.findMany({
@@ -12,7 +12,6 @@ export const findPlayersByGameId = (gameId: number): Promise<GamePlayer[]> =>(
 export const createGamePlayer = ( gameId: number, playerId: number): Promise<GamePlayer> => (
     prisma.gamePlayer.create({
         data: {
-
             game:{
                 connect:{
                     id: gameId
@@ -23,8 +22,6 @@ export const createGamePlayer = ( gameId: number, playerId: number): Promise<Gam
                     id: playerId
                 }
             }
-            
         }
     })
-)
-    
+);   

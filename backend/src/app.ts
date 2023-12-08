@@ -4,14 +4,14 @@ import cors from "cors";
 import apiRouter from "./routes";
 import initializeSocket from "./sockets";
 
-const app = express()
+const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT_NO || 5000;
 
-app.use(express.json(), cors())
-app.use("/api", apiRouter)
-initializeSocket(server)
+app.use(express.json(), cors());
+app.use("/api", apiRouter);
+initializeSocket(server);
 
 server.listen(PORT, ()=>{
     console.log(`Server listening in on port http://localhost:${PORT}`)
-})
+});

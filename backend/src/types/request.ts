@@ -1,3 +1,5 @@
+//Request type of the gamePost bbody
+
 export interface GameOptions{
     num: number;
     min?: string;
@@ -7,4 +9,4 @@ export interface GameOptions{
     format?: string;
     rnd?: string;
     playerIds?: number[];
-}
+};

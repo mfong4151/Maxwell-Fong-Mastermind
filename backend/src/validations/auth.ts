@@ -11,8 +11,7 @@ const generateAuthFieldsValidation = (property: string): ValidationChain=>(
             `${capitalize(property)} can only contain characters that are uppercase or lowercase a-z, 0-9, or punctuation.\n
             No whitespace is allowed!`
         )
-
-)
+);
 
 export const authValidations: ValidationChain[] = [
     generateAuthFieldsValidation("username"),

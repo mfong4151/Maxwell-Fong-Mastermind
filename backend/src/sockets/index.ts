@@ -7,10 +7,8 @@ const initializeSocket = (server: any) => {
       methods: ["GET", "POST"],
       credentials: true
     }
-  })
+  });
   
-  
-
   io.on("connection",(socket: Socket) => {
     
     socket.on("joinRoom", room => {
@@ -19,11 +17,11 @@ const initializeSocket = (server: any) => {
     })
     
     socket.on("guess", guess =>{
-      socket.to(guess.roomId).emit("recieveGuess", guess)
+      socket.to(guess.roomId).emit("recieveGuess", guess);
     })
   })
   
 
-}
+};
 
 export default initializeSocket;
