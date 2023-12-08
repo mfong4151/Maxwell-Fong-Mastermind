@@ -8,7 +8,7 @@ const WinLoss: React.FC<Props> = ({ wins, total }) => {
   return (
     <div className="flex-center">
       <p>
-        {`Wins: ${wins} Total Games: ${total}`}
+        {`Wins: ${wins ? wins: 0} Total Games: ${total ? total: 0}`}
       </p>
     </div>
 

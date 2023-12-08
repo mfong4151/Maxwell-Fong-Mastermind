@@ -19,10 +19,13 @@
 }
 
 .you-won{
-
+    all: unset;
+    font-size: 2rem;
+    font-weight: 600;
+    color: green;
 }
 .winning-combo{
-
+    color: green
 }
 
 .all-incorrect{

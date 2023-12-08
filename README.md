@@ -47,9 +47,11 @@ Of course substituting <username> and <password> for your username and password 
 Next execute the following command in /backend:
 
 ```bash
-npx prisma generate
+npx prisma db push 
 ```
-This will create the Prisma Client, which will generate in node_modules. Prisma client is needed
+This will initialize the database, and initialize the Prisma Client, which will generate in node_modules. Prisma client is needed
+
+If the database fails to initialize, then 
 
 ### Frontend
 
@@ -147,14 +149,11 @@ The following suggested optional features were implemnted
 3. Score keeping.
 4. Multiplayer.
 
-### Additional Feature implementations
-
 ### Optional User Authentication
 
 Users can authenticate optionally. A non-signed in user can play the game without logging in, and will have access to hints. Because the game had goals for a leaderboard, signed in users do not have access to hints.
 
 JWTs are used for authentication, and are checked by Express middleware.
-
 
 ### Real-Time Gameplay
 
@@ -311,11 +310,9 @@ Content-Type: application/json
 ```
 Response:
 
-```
-    201 Created: Game successfully created. Returns the details of the created game.
-    400 Bad Request: Invalid input or missing required fields.
-    500 Internal Server Error: Unexpected server error.
-```
+201 Created: Game successfully created. Returns the details of the created game.
+400 Bad Request: Invalid input or missing required fields.
+500 Internal Server Error: Unexpected server error.
 
 POST /games/{gameId}/guesses - Submit a Guess in a Game
 

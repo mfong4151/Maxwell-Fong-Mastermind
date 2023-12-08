@@ -5,7 +5,6 @@ import { GameGuess } from "@prisma/client";
 import { GameConfig, controllerError, gameGuessNoFK} from "../../../types";
 import { _checkGamePlayable } from "./_checkGamePlayable";
 import { _scoreRound } from "./_scoreRound";
-import {  _isPlayerPermitted } from "./_checkPlayerPermission";
 import { retrieveGameConfig, retrievePlayers } from "../utils";
 
 export const postGameGuess = async (req: Request, res: Response): Promise<Response> => {
@@ -52,7 +51,6 @@ export const postGameGuess = async (req: Request, res: Response): Promise<Respon
                 .json(gameGuess);
 
     } catch (error: controllerError) {
-        console.log(error)
         return handleControllerErrors(res, error, "game");
         
     }

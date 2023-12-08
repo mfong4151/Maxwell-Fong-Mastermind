@@ -1,6 +1,6 @@
 import { Response } from "express"
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
-import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION } from "./constants"
+import { NON_EXISTANT_RELATION, UNIQUE_CONSTRAINT_VIOLATION, MALFORMED_SQL_ERROR } from "./constants"
 import { controllerError } from "../../types"
 
 //Catch all functions for dealing with errors
@@ -34,6 +34,10 @@ const _delegatePrismaQueryError = (res: Response, error: PrismaClientKnownReques
             return res
                     .status(404)
                     .json({errors: [`A relation on the ${resourceName} field does not exist`]})
+        case MALFORMED_SQL_ERROR:
+            return res
+                    .status(500)
+                    .json({error: [`A query for the related resource is incorrect, please come again later.`]})
 
         default:
             return res

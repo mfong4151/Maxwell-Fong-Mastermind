@@ -4,4 +4,4 @@ export const _convertToEndDate = (numTime: number): string =>{
     const endDate = new Date(now.getTime() + numTime);
     
     return endDate.toISOString();
-} 
+} ;

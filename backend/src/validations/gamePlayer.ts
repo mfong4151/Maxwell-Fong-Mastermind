@@ -4,7 +4,7 @@ import { generateIdValidation } from "./utils";
 const gameIdNumeric: ValidationChain = generateIdValidation(param('gameId'), 'game id');
 const playerIdNumeric: ValidationChain = generateIdValidation(param('playerId'), 'player id');
 
-export const gamePlayerValidation: ValidationChain[] = [
+export const gamePlayerPostValidations: ValidationChain[] = [
     gameIdNumeric,
     playerIdNumeric
 ];

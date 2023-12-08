@@ -2,28 +2,19 @@ import { ValidationChain, body, param} from "express-validator";
 import { generateIdValidation } from "./utils";
 
 const paramIdValidation = generateIdValidation(param("id"), "game id")
-const paramGameValidation = generateIdValidation(param("gameId"), "game id")
+
 
 //Game GET validations
-export const gameGuessGetValidations: ValidationChain[] = [
-    generateIdValidation(param("gameId"), "game id") 
-
-];
-
 export const gameGetValidations: ValidationChain[] = [
     paramIdValidation    
 ];
 
-export const gameHintGetValidations: ValidationChain[] =[
-    paramGameValidation
-];
-
-//Game post validations
+//Game POST validations
 const gameNumValidation: ValidationChain = 
     body("num")
         .isInt()
         .custom((num: number) => Number(num) > 0)
-        .withMessage("Your code size must be a number greater than 0!")
+        .withMessage("Your code size must be a number greater than 0!");
 
 const gamePlayerIdsValidation: ValidationChain =  
     body("playerIds")
@@ -34,19 +25,19 @@ const gamePlayerIdsValidation: ValidationChain =
                   typeof num === "number")
                 )
         .withMessage("Player ids must be numbers!")
-        .optional()
+        .optional();
 
 const gameNumGuessesValidation: ValidationChain = 
     body("numGuesses")
         .custom((numGuesses: number, {req}) => (numGuesses >= req.body.num))
-        .withMessage("Guess attempts must be greater than or equal to the code length!")
+        .withMessage("Guess attempts must be greater than or equal to the code length!");
 
 const gameEndsAtValidation: ValidationChain =
     body("endsAt")
         .isInt()
         .custom(endsAt => endsAt > 0)
         .withMessage(`Key "endsAt" must be a number greater than 0!`)
-        .optional()
+        .optional();
 
 export const gamePostValidations: ValidationChain[] = [
     gameNumValidation,
@@ -55,33 +46,3 @@ export const gamePostValidations: ValidationChain[] = [
     gameEndsAtValidation
 ];
 
-//Guess POST validatons
-//In the case that any guess is given as a number, we handle it in santizations
-const supportedTypes: string[] =  ["string", "number"];
-const paramGameIdValidation = generateIdValidation(param("gameId"), " game id");
-const playerIdValidation = generateIdValidation(body("playerId").optional(), "player id");
-const guessesValidation = body("guesses")
-                            .isLength({min: 0})
-                            .withMessage("Guesses cannot be empty!")
-                            .custom((arr: any[])=>arr.every((num: any) => supportedTypes.includes(typeof num)))
-                            .withMessage(
-                                 `You have entered a data type that we cannot support, we currently only support the\
-                                  following types: ${supportedTypes.join(", ")}`
-                            );
-
-export const gameGuessPostValidations: ValidationChain[] = [
-    paramGameIdValidation, 
-    playerIdValidation,
-    guessesValidation
-    
-];
-
-//GamePlayer POST validations
-const gameIdNumeric = generateIdValidation(param("gameId"), "game id");
-const playerIdNumeric = generateIdValidation(body("playerId"), "player id");
-
-export const gamePlayerPostValidations: ValidationChain[] =[
-    gameIdNumeric,
-    playerIdNumeric,
-
-];
