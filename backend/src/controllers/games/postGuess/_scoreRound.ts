@@ -23,10 +23,14 @@ export const _scoreRound = (secretCode: string[],guesses: string[]): gameGuessNo
     Then we only diff the count hash and the remaining members of the secret code
 */ 
 
+type Counter = {
+    [key: string]: number
+}
+
 export const _scoreCorrectNums = (secretCode: string[], guesses: string[]): CorrectNums=>{
     let numCorrectLoc: number = 0, numCorrectNum: number;
-    const unmatchedSecret: {[key: string]: number} = {};
-    const unmatchedGuess: string[] = []
+    const unmatchedSecret: Counter = {};
+    const unmatchedGuess: Counter = {};
 
     for(let i: number = 0; i < secretCode.length; i++){
         const code: string = secretCode[i];
@@ -36,22 +40,18 @@ export const _scoreCorrectNums = (secretCode: string[], guesses: string[]): Corr
             numCorrectLoc ++
         } else {
             unmatchedSecret[code] = 1 ??  unmatchedSecret[code] + 1;
-            unmatchedGuess.push(guess)
+            unmatchedGuess[guess] = 1 ?? unmatchedGuess[guess] + 1;
         }
     }
 
     //Compare unmatched items
     numCorrectNum = numCorrectLoc;
 
-    //Big-O optimization, if we know that numCorrectLoc is === length of the code, skip the nested loop
-    if (numCorrectLoc !== secretCode.length){
-        for (const guess of unmatchedGuess){
-            if (unmatchedSecret[guess] && unmatchedSecret[guess] > 0){
-                numCorrectNum ++
-                unmatchedSecret[guess] --
-            }
-        }
+    for (const guess of Object.keys(unmatchedGuess)){
+        numCorrectNum += unmatchedSecret[guess] 
+                            ? Math.min(unmatchedGuess[guess], unmatchedSecret[guess]) 
+                            : 0
     }
     
-    return {numCorrectNum, numCorrectLoc}
-}
+    return {numCorrectNum, numCorrectLoc};
+};
