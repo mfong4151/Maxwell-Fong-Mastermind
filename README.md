@@ -281,9 +281,9 @@ Authentication Endpoints
 
 ### Endpoint Parameters
 
-While the majority of the routes are fairly generic in terms of their parameters, the following core routes are
+While the majority of the routes are fairly generic in terms of their parameters, the following core routes are:
 
-POST /games/ - Create a New Game
+#### POST /games/ - Create a New Game
 
 This endpoint is used to create a new game instance. 
 
@@ -314,7 +314,7 @@ Response:
 400 Bad Request: Invalid input or missing required fields.
 500 Internal Server Error: Unexpected server error.
 
-POST /games/{gameId}/guesses - Submit a Guess in a Game
+#### POST /games/{gameId}/guesses - Submit a Guess in a Game
 
 This endpoint allows players to submit a guess in an ongoing game.
 URL Parameters:
