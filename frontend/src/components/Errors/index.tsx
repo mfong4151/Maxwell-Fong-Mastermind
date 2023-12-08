@@ -10,7 +10,7 @@ const Errors: React.FC<Props> = ({ errors }) => {
         <>
             {
                 errors && !!errors.length &&
-                <ul id="errors">
+                <ul id="errors" className="flex-col">
                     {errors.map((error: string, idx: number) => <li> {error} </li>)}
                 </ul>
             }

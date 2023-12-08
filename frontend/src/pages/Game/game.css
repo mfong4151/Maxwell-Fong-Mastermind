@@ -5,6 +5,8 @@
 
 #game-history{
     all: unset;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .game-history-item{

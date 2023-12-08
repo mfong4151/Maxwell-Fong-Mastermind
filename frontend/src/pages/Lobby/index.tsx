@@ -14,7 +14,6 @@ const Lobby: React.FC = () => {
   
   useEffect(() => {
     socket.connect()
-    socket.on("connect", () => setIsConnected(true))
     socket.emit("joinRoom", lobbyId)
     socket.on("recieveGuess", guess => {
       dispatch(guess.dispatch)

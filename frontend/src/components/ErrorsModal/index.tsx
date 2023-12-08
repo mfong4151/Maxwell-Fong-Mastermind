@@ -19,7 +19,7 @@ const ErrorsModal: React.FC<Props> = ({ errors, setErrors }) => {
 
     return (
         <>
-        { !!errors.length && createPortal(
+        { errors && !!errors.length && createPortal(
             <ModalLayout>
                 <dialog open id="errors-modal" onClick={e => e.stopPropagation()}>
                     <div className="flex-center-right">

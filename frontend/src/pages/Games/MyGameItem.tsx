@@ -4,8 +4,9 @@ import "./games.css";
 import { useNavigate } from "react-router-dom";
 
 interface Props{
-    game: Game
-}
+    game: Game;
+};
+
 const MyGameItem:React.FC<Props> = ({game}) => {
     const {id, numGuesses, roundNo, numPlayers, endsAt} = game;
     const endDateTime: Date | null = endsAt ? new Date(endsAt) : null 

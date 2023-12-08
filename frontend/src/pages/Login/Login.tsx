@@ -5,8 +5,6 @@ import { getStoredToken, isLoggedIn, jwtFetch, login, storeToken } from "../../u
 import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../utils";
 
-
-
 const Login: React.FC = () => {
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
