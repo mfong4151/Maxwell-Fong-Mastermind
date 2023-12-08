@@ -3,16 +3,13 @@ import { generateNotFoundMessage, handleControllerErrors, lruGames } from "../ut
 import { Game } from "@prisma/client";
 import { findGameById } from "../../database/game";
 import type { controllerError } from "../../types";
-import { retrieveGameConfig } from "./utils";
 
-//When a GET request is made to get the game, we cache the players and the games.
-//We do this because we assume that attempts to play the game are made later on after a game is accessed.
+//GET request to get the previous game state.
 export const getGame = async (req: Request, res: Response): Promise<Response> => {
     const id: number =  Number(req.params.id as string);
     
     try {
         const game: Awaited<Partial<Game | null>> = await findGameById(id);
-        await retrieveGameConfig(id);  //Optimization side-effect.
         
         if (game){
             return res.status(200).json(game);
