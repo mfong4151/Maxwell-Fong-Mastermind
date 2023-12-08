@@ -42,7 +42,6 @@ const NewGameForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="flex-col">
           <div>
             <label htmlFor="num">Code Length:</label>
             <input
@@ -66,7 +65,6 @@ const NewGameForm: React.FC = () => {
             <label htmlFor="endsAt">Time Limit (optional):</label>
             <EndsAtSelect endsAt={endsAt} setEndsAt={setEndsAt}/>
           </div>
-        </div>
         <button type="submit">Start New Game</button>
       </form>
       <ErrorsModal errors={errors} setErrors={setErrors}/>

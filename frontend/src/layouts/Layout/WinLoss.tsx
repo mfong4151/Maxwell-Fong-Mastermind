@@ -1,15 +1,17 @@
 import React from "react";
 
-interface Props{
-    wins: number;
-    total: number;
+interface Props {
+  wins: number;
+  total: number;
 }
-const WinLoss:React.FC<Props> = ({wins, total}) => {
+const WinLoss: React.FC<Props> = ({ wins, total }) => {
   return (
-    <p>
+    <div className="flex-center">
+      <p>
         {`Wins: ${wins} Total Games: ${total}`}
-    </p>
-    
+      </p>
+    </div>
+
   );
 };
 

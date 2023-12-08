@@ -1,5 +1,9 @@
 header{
-    height:10vh;
+    height:auto;
+}
+
+#home{
+    font-size: 2.5rem;
 }
 
 nav{
@@ -28,6 +32,8 @@ nav a{
 main{
     height: 80vh;
 }
-footer{
-    height: 10vh;
+
+
+.auth-options{
+    width: 13rem;
 }

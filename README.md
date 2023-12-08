@@ -5,9 +5,6 @@ This project is my submission for the Mastermind take home challenge for LinkedI
 
 My mastermind submission includes both a frontend and backend for demonstration. The frontend was made particularly to scale backend features, and for presentation purposes in general. As this is a Backend Apprenticeship, the focus here is on the Express backend and how I crafted the main features. Bellow I’ve detailed some of the main features, and challenges I encountered during the development process.
 
-This project is my submission for the Mastermind take home challenge for Linkedin REACH's Backend Apprenticeship candidacy. Assume that mastermind was an n-player, real-time game, what would that look like? This project takes that question as a point of departure, and uses it to animate the main features.
-
-My mastermind submission includes both a frontend and backend for demonstration. The frontend was made particularly to scale backend features, and for presentation purposes in general. As this is a Back
 
 ## Table of Contents
 1. [Setup and Running](#setup-and-running)
@@ -28,9 +25,8 @@ My mastermind submission includes both a frontend and backend for demonstration.
    - [Frontend Notes](#frontend-notes)
    - [Optimizing Requests](#optimizing-requests)
 7. [Code Highlights](#code-highlights)
-    - [Scoring Algorithm](#scoring-algorithm)
-    - [Get Games Query](#get-games-query)
-    - 
+   - [Scoring Algorithm](#scoring-algorithm)
+   - [Get Games Query](#get-games-query)
 
 ## Setup and running
 
@@ -358,7 +354,7 @@ Response:
     500 Internal Server Error: Unexpected server error.
 ```
 
-## Project structure
+## Project Folder Structure
 
 ### Backend
 Routes (/routes): Defines various Express.js routes for different functionalities like users, games, authentication, and testing. Each route uses middleware for authentication and validation, and is linked to specific controller functions.

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
 import Nav from "./Nav";
-import Footer from "./Footer";
 import "./layout.css"
 
 interface Props{
@@ -16,7 +15,6 @@ const Layout:React.FC<Props> = ({children}) => {
         <main>
             {children}
         </main>
-        <Footer/>
     </>
     );
 };

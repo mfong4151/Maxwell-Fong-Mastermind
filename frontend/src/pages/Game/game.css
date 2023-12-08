@@ -13,3 +13,18 @@
     all: unset;
     
 }
+
+.guess-at{
+    font-weight: 600;
+}
+
+.you-won{
+
+}
+.winning-combo{
+
+}
+
+.all-incorrect{
+    color: red
+}

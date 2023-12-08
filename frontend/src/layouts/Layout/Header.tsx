@@ -5,44 +5,44 @@ import { useErrors } from "../../hooks";
 import { useGame } from "../../context/GameContext";
 import { ADD_SESSION_USER } from "../../context/GameReducer";
 import WinLoss from "./WinLoss";
-interface Props{
+interface Props {
 
 }
-const Header:React.FC<Props> = () => {
+const Header: React.FC<Props> = () => {
   const navigate = useNavigate()
-  const errorsOptions =  useErrors();
+  const errorsOptions = useErrors();
   const setErrors = errorsOptions.setErrors;
-  const {state, dispatch} =  useGame();
+  const { state, dispatch } = useGame();
 
-  const handleOnClick = (e:any):void => {
-    const id  = e.target.id;
-    
-    if (id === "login"){
-      navigate("/login")      
-    }else{
+  const handleOnClick = (e: any): void => {
+    const id = e.target.id;
+
+    if (id === "login") {
+      navigate("/login")
+    } else {
       logout()
       navigate("/login")
     }
   }
-  const handleGoHome = (e: any): void =>{
-    if(isLoggedIn()){
+  const handleGoHome = (e: any): void => {
+    if (isLoggedIn()) {
       navigate("/games")
-    }    
+    }
 
   }
 
-  useEffect(()=>{
-    const getProfile = async() => {
+  useEffect(() => {
+    const getProfile = async () => {
       try {
-          const res = await jwtFetch(`${SERVER_URL}/api/v1/users/profiles`);
-          const data = await res.json();
-          if (res.ok){
-              dispatch({type: ADD_SESSION_USER, payload: data})              
-          }
-          
-          setErrors(data.errors)
+        const res = await jwtFetch(`${SERVER_URL}/api/v1/users/profiles`);
+        const data = await res.json();
+        if (res.ok) {
+          dispatch({ type: ADD_SESSION_USER, payload: data })
+        }
+
+        setErrors(data.errors)
       } catch (error: any) {
-          setErrors([error])
+        setErrors([error])
       }
 
     }
@@ -52,24 +52,30 @@ const Header:React.FC<Props> = () => {
 
   return (
     <header className="padding-default flex-between">
-      <span className="cursor-events" onClick={handleGoHome}>
-        Mastermind
-      </span>
 
-      <div>
-        { 
-          isLoggedIn() 
-          ?
+      <div className="flex-center">
+
+        <span id="home" className="cursor-events" onClick={handleGoHome}>
+          Mastermind
+        </span>
+      </div>
+
+      <div className="auth-options">
+        {
+          isLoggedIn()
+            ?
             <>
-            <span>Hello {state?.sessionUser?.username}</span>
-            <button id="logout" onClick={handleOnClick}>
-              Log out
-            </button>
-            <WinLoss wins={state?.sessionUser?.gamesWon} total={state?.sessionUser?.totalGames} /> 
+              <div className="flex-evenly align-center">
+                <span>Hello {state?.sessionUser?.username}</span>
+                <button id="logout" onClick={handleOnClick}>
+                  Log out
+                </button>
+              </div>
+              <WinLoss wins={state?.sessionUser?.gamesWon} total={state?.sessionUser?.totalGames} />
             </>
-          :
+            :
             <button id="login" onClick={handleOnClick}>
-               Log in 
+              Log in
             </button>
         }
 

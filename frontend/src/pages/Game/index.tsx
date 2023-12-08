@@ -10,6 +10,7 @@ import Timer from "./Timer";
 import Players from "./Players";
 import { isLoggedIn } from "../../utils";
 import Hints from "./Hints";
+import ErrorsModal from "../../components/ErrorsModal";
 
 const Game: React.FC = () => {
   const params = useParams();
@@ -58,9 +59,9 @@ const Game: React.FC = () => {
         <GuessInput errorsOptions={errorsOptions} guessInputState={guessInputState} />
         <div>Remaining Attempts: {game.numGuesses - Object.values(guesses)?.length}</div>
         <GuessHistory guesses={guesses} />
-        <Errors errors={errors} />
       </div>
       <Players players={game?.players}/>
+      <ErrorsModal errors={errors} setErrors={setErrors}/>
     </div>
   );
 };

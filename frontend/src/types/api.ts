@@ -18,4 +18,6 @@ export interface Guess {
     numCorrectLoc: number;
     numCorrectNum: number;
     guesses: string[];
+    createdAt: string;
+    updatedAt: string;
 }

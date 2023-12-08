@@ -1,3 +1,4 @@
 #errors > li{
-    all: unset
+    all: unset;
+    color: red;
 }

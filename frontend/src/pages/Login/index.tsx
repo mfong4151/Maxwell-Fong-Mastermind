@@ -10,8 +10,11 @@ const LoginPage:React.FC<Props> = () => {
 
   return (
     <div className="flex-center flex-col">
-        <Login/>
-        <LoginlessPlay/>
+        <div id="login-options">
+
+          <Login/>
+          <LoginlessPlay/>
+        </div>
     </div>
   );
 };
