@@ -66,7 +66,7 @@ export const postGame = async (req: Request, res: Response): Promise<Response> =
 //Handles the addition of users to a game if its not specified immediately
 const _handleUserId = (userId: number | undefined, playerIds: number[]): number[] => {
     if (userId){ 
-        if (playerIds){
+        if (playerIds && !playerIds.includes(userId)){
             playerIds.push(userId)
         } else{
             playerIds = [userId]

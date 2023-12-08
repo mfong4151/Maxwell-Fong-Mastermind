@@ -289,10 +289,10 @@ This endpoint is used to create a new game instance.
 
 Request Parameters:
 
-num: (Required) Integer. Specifies the number of elements in the secret code.
-numGuesses: (Required) Integer. Defines the maximum number of guesses allowed in the game.
-playerIds: (Optional) Array of Integers. Contains the IDs of players participating in the game. If omitted, then the game is only played by a single player.
-endsAt: (Optional) String. A timestamp indicating when the game ends. If not provided, the game has no time limit.
+    num: (Required) Integer. Specifies the number of elements in the secret code.
+    numGuesses: (Required) Integer. Defines the maximum number of guesses allowed in the game.
+    playerIds: (Optional) Array of Integers. Contains the IDs of players participating in the game. If omitted, then the game is only played by a single player. This is optional as a means to give users the option of initializing a multiplayer game, although in the provided UI this feature is not implemented.
+    endsAt: (Optional) String. A timestamp indicating when the game ends. If not provided, the game has no time limit.
 
 Example Request:
 
@@ -310,9 +310,9 @@ Content-Type: application/json
 ```
 Response:
 
-201 Created: Game successfully created. Returns the details of the created game.
-400 Bad Request: Invalid input or missing required fields.
-500 Internal Server Error: Unexpected server error.
+    201 Created: Game successfully created. Returns the details of the created game.
+    400 Bad Request: Invalid input or missing required fields.
+    500 Internal Server Error: Unexpected server error.
 
 #### POST /games/{gameId}/guesses - Submit a Guess in a Game
 
@@ -323,9 +323,9 @@ URL Parameters:
 
 Request Parameters:
 
-    Body Parameters:
-        guesses: (Required) Array of Strings. The player's guess, consisting of a series of numbers or characters, depending on the game configuration.
-        playerId: (Optional) Integer. The ID of the player making the guess. Required if the game is not a guest game.
+Body Parameters:
+    guesses: (Required) Array of Strings. The player's guess, consisting of a series of numbers or characters,depending on the game configuration.
+    playerId: (Optional) Integer. The ID of the player making the guess. Required if the game is not a guestgame.
 
 Example Request:
 
@@ -342,7 +342,6 @@ Content-Type: application/json
 
 ```
 Response:
-
     201 Created: Guess successfully submitted. Returns the result of the guess.
     400 Bad Request: Invalid input or missing required fields.
     401 Unauthorized: If the player is not authorized to play in the game.
@@ -356,7 +355,7 @@ Response:
 ### Backend
 Routes (/routes): Defines various Express.js routes for different functionalities like users, games, authentication, and testing. Each route uses middleware for authentication and validation, and is linked to specific controller functions.
 
-Controllers (/controllers): Contains the logic for handling requests for different routes. It includes functionalities for user management, game actions (like getting guesses, posting games), and authentication (signup, login).
+Controllers (/controllers): Contains the logic for handling requests for different routes. While there are no explicit "controllers" in Express, this folder is meant to localize controller logic. It includes functionalities for user management, game actions (like getting guesses, posting games), and authentication (signup, login).
 
 Database (/database): Manages interactions with the database using Prisma, an ORM (Object-Relational Mapping) for Node.js. It includes functions for querying and manipulating data related to games, game guesses, users, etc.
 
@@ -366,7 +365,7 @@ Utils (/utils): Utility functions for common tasks like token generation for JWT
 
 Middleware (/middleware): Custom Express middleware for tasks such as request logging, JWT authentication, validation, and optional JWT authentication.
 
-Sockets (/sockets): Setting up WebSocket for real-time bi-directional communication between clients and the server.
+Sockets (/sockets): Setting up WebSocket for real-time, bi-directional communication between clients and the server. Shows some basic code for multiplayer.
 
 Validations (/validations): Contains express-validator chains for validating and sanitizing inputs for various routes.
 
