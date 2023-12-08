@@ -49,6 +49,7 @@ const GuessInput: React.FC<Props> = ({errorsOptions, guessInputState }) => {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className="guess-input"
         type="text"
         value={guess}
         onChange={(e) => setGuess(e.target.value)}

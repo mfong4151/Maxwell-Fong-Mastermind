@@ -7,7 +7,7 @@ interface Props {
 }
 
 const GuessHistoryItem: React.FC<Props> = ({ guess }) => {
-  const { numCorrectNum, numCorrectLoc, isGameWon, guesses, createdAt} = guess;
+  const { numCorrectNum, numCorrectLoc, isGameWon, guesses, createdAt } = guess;
   const isAllIncorrect = !numCorrectNum && !numCorrectLoc
   const guessTime = new Date(createdAt)
 
@@ -15,7 +15,10 @@ const GuessHistoryItem: React.FC<Props> = ({ guess }) => {
     <li className="game-history-item">
       {isAllIncorrect
         ?
-        <p className="all-incorrect">All incorrect: {guesses}</p>
+        <>
+          <p className="guess-at">At: {guessTime.getHours()}:{guessTime.getMinutes()}:{guessTime.getSeconds()}</p>
+          <p className="all-incorrect">All incorrect: {guesses}</p>
+        </>
         :
         isGameWon
           ?
