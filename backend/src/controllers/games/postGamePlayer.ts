@@ -3,7 +3,7 @@ import { Game, GamePlayer } from "@prisma/client";
 import { findGameById } from "../../database/game";
 import { createGamePlayer } from "../../database/gamePlayers";
 import { findUserProfileById } from "../../database/user";
-import { handleControllerErrors } from "../utils";
+import { handleControllerErrors, lruPlayers } from "../utils";
 import type { UserProfile, controllerError } from "../../types";
 
 //Used for adding players to a game
@@ -24,7 +24,13 @@ export const postGamePlayer  = async (req: Request, res: Response): Promise<Resp
 
         }
         const gamePlayer: Awaited<GamePlayer> = await createGamePlayer(gameId, playerId);
-        
+
+        //Update the cache if it exists, else it will update automatically on next guess
+        const playersCachedSet: Set<number> = lruPlayers.get(game.id!)
+        if (playersCachedSet){
+            playersCachedSet.add(playerId)
+        }
+
         return res.status(200).json(gamePlayer);
 
     } catch (error: controllerError){
